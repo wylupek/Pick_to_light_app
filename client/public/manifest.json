@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "PickToLight",
+  "name": "Pick to light",
   "icons": [
     {
       "src": "favicon.ico",
