@@ -26,7 +26,8 @@ app.post('/api/values', (req, res) => {
             return res.status(400).json({ error: 'Product ID is required' });
       }
 
-      db.all('SELECT value FROM product_values WHERE product_id = ?', [productId], (err, rows) => {
+      db.all('SELECT value FROM product_values WHERE product_id = ?',
+          [productId], (err, rows) => {
             if (err) {
                   console.error(err);
                   res.status(500).json({ error: 'Database query failed' });
@@ -39,7 +40,22 @@ app.post('/api/values', (req, res) => {
 });
 
 app.post('/api/products', (req, res) => {
-      db.all('SELECT * FROM products', [], (err, rows) => {
+      db.all('SELECT * FROM products',
+          [], (err, rows) => {
+            if (err) {
+                  console.error(err);
+                  res.status(500).json({ error: 'Database query failed' });
+            } else if (rows.length === 0) {
+                  res.status(404).json({ error: 'Product not found' });
+            } else {
+                  res.json(rows);
+            }
+      });
+});
+
+app.post('/api/suppliers', (req, res) => {
+      db.all('SELECT supp_id, supp_name FROM products GROUP BY supp_name',
+          [], (err, rows) => {
             if (err) {
                   console.error(err);
                   res.status(500).json({ error: 'Database query failed' });

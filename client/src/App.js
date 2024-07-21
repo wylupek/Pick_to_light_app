@@ -1,13 +1,12 @@
-//App.js
-
+import SuppliersTable from './components/SuppliersTable/SuppliersTable';
 import axios from 'axios';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 
-const apiProducts = () => {
-    axios.post('http://localhost:8080/api/products')
+const apiSuppliers = (setSuppliers) => {
+    axios.post('http://localhost:8080/api/suppliers')
         .then(response => {
-            console.log(response.data)
+            setSuppliers(response.data);
         })
         .catch(err => {
             console.error(err);
@@ -25,14 +24,20 @@ const apiValues = (id) => {
 }
 
 function App() {
-  return (
-    <div className="App">
-        <header className="App-header">
-            <button onClick={() => apiValues(1)}>apiValues</button>
-            <button onClick={apiProducts}>apiProducts</button>
-        </header>
-    </div>
-  );
+    const [suppliers, setSuppliers] = useState([]);
+
+    // Fetch suppliers when the component mounts
+    useEffect(() => {
+        apiSuppliers(setSuppliers);
+    }, []);
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <SuppliersTable suppliers={suppliers} />
+            </header>
+        </div>
+    );
 }
 
 export default App;
