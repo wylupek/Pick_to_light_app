@@ -15,6 +15,6 @@ node index.js
 ### Database:
 ```
 node setup.js
-    or
+   or
 npm run setup-db
 ```
