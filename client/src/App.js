@@ -4,16 +4,18 @@ import axios from 'axios';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 
-//data will be the string we send from our server
-const apiCall2 = () => {
-  axios.get('http://localhost:8080/api/list').then((data) => {
-    //this console.log will be in our frontend console
-    console.log(data)
-  })
+const apiProducts = () => {
+    axios.post('http://localhost:8080/api/products')
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch(err => {
+            console.error(err);
+        });
 }
 
-const apiCall = () => {
-    axios.post('http://localhost:8080/api/products', { id: 1 })
+const apiValues = (id) => {
+    axios.post('http://localhost:8080/api/values', { id: id})
         .then(response => {
             console.log(response.data)
         })
@@ -26,10 +28,8 @@ function App() {
   return (
     <div className="App">
         <header className="App-header">
-
-            <button onClick={apiCall}>Console log full data</button>
-            <button onClick={apiCall2}>Log message</button>
-
+            <button onClick={() => apiValues(1)}>apiValues</button>
+            <button onClick={apiProducts}>apiProducts</button>
         </header>
     </div>
   );

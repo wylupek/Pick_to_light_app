@@ -19,25 +19,34 @@ app.listen(8080, () => {
       console.log('server listening on port 8080')
 })
 
-app.get('/api/list', (req, res) => {
-      res.send("Test");
-})
-
-app.post('/api/products', (req, res) => {
+app.post('/api/values', (req, res) => {
       const productId = req.body.id; // Get the product ID from request body
 
       if (!productId) {
             return res.status(400).json({ error: 'Product ID is required' });
       }
 
-      db.get('SELECT * FROM products WHERE id = ?', [productId], (err, row) => {
+      db.all('SELECT value FROM product_values WHERE product_id = ?', [productId], (err, rows) => {
             if (err) {
                   console.error(err);
                   res.status(500).json({ error: 'Database query failed' });
-            } else if (!row) {
+            } else if (rows.length === 0) {
                   res.status(404).json({ error: 'Product not found' });
             } else {
-                  res.json(row);
+                  res.json(rows);
+            }
+      });
+});
+
+app.post('/api/products', (req, res) => {
+      db.all('SELECT * FROM products', [], (err, rows) => {
+            if (err) {
+                  console.error(err);
+                  res.status(500).json({ error: 'Database query failed' });
+            } else if (rows.length === 0) {
+                  res.status(404).json({ error: 'Product not found' });
+            } else {
+                  res.json(rows);
             }
       });
 });
