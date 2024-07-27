@@ -4,7 +4,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 
 const apiSuppliers = (setSuppliers) => {
-    axios.post('http://localhost:8080/api/suppliers')
+    axios.post('http://192.168.1.100:8080/api/suppliers')
         .then(response => {
             setSuppliers(response.data);
         })
@@ -14,7 +14,7 @@ const apiSuppliers = (setSuppliers) => {
 }
 
 const apiValues = (id) => {
-    axios.post('http://localhost:8080/api/values', { id: id})
+    axios.post('http://192.168.1.100:8080/api/values', { id: id})
         .then(response => {
             console.log(response.data)
         })
@@ -41,3 +41,6 @@ function App() {
 }
 
 export default App;
+
+// TODO Make it visible on local network
+// TODO Take care of max POST size
