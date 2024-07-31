@@ -1,15 +1,30 @@
+$border-color: #ffffff;
+$header-background-color: #282c34;
+$row-even-background-color: #343944;
+
 .suppliersTable {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
 
     th, td {
-        border: 1px solid #ffffff;
+        border: 1px solid $border-color;
         padding: 8px;
         text-align: left;
     }
 
     th {
-        background-color: #282c34;
+        background-color: $header-background-color;
+    }
+
+    // First column
+    th:first-child, td:first-child {
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    // Every second row
+    tr:nth-child(even) {
+        background-color: $row-even-background-color;
     }
 }
