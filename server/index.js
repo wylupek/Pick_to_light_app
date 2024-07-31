@@ -20,7 +20,7 @@ app.listen(8080, '192.168.1.100', () => {
 })
 
 app.post('/api/values', (req, res) => {
-      const productId = req.body.id; // Get the product ID from request body
+      const productId = req.body.id;
 
       if (!productId) {
             return res.status(400).json({ error: 'Product ID is required' });
@@ -37,6 +37,26 @@ app.post('/api/values', (req, res) => {
                   res.json(rows);
             }
       });
+});
+
+app.post('/api/productsBySupplierId', (req, res) => {
+      const supplierId = req.body.id;
+
+      if (!supplierId) {
+            return res.status(400).json({ error: 'Supplier ID is required' });
+      }
+
+      db.all('SELECT ean, product_name FROM products WHERE supp_id = ?',
+          [supplierId], (err, rows) => {
+                if (err) {
+                      console.error(err);
+                      res.status(500).json({ error: 'Database query failed' });
+                } else if (rows.length === 0) {
+                      res.status(404).json({ error: 'Supplier not found' });
+                } else {
+                      res.json(rows);
+                }
+          });
 });
 
 app.post('/api/products', (req, res) => {

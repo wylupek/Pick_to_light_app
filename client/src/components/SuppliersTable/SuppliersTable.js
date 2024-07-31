@@ -1,13 +1,20 @@
 import React from 'react';
-import './SuppliersTable.css';
+import './SuppliersTable.scss';
+import { useNavigate } from 'react-router-dom';
 
-const SuppliersTable = ({ suppliers: suppliers }) => {
+const SuppliersTable = ({ suppliers }) => {
+    const navigate = useNavigate();
+
+    const handleRowClick = (supp_id) => {
+        navigate(`/products/${supp_id}`);
+    }
+
     if (suppliers.length === 0) {
-        return <p>No products available</p>;
+        return <p>No suppliers available</p>;
     }
 
     return (
-        <table>
+        <table className='suppliersTable'>
             <thead>
             <tr>
                 <th>ID</th>
@@ -16,7 +23,7 @@ const SuppliersTable = ({ suppliers: suppliers }) => {
             </thead>
             <tbody>
             {suppliers.map(supplier => (
-                <tr key={supplier.id}>
+                <tr key={supplier.supp_id} onClick={() => handleRowClick(supplier.supp_id)}>
                     <td>{supplier.supp_id}</td>
                     <td>{supplier.supp_name}</td>
                 </tr>
