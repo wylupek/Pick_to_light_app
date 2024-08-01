@@ -2,6 +2,7 @@ $placeholder-color: #ffffff;
 $border-color: #ffffff;
 $background-color: #282c34;
 $icon-color: #ffffff;
+$input-text-color: #ffffff;
 
 .searchBar {
   position: relative;
@@ -14,6 +15,7 @@ $icon-color: #ffffff;
     transform: translateY(-50%);
     width: 24px;
     height: 24px;
+    fill: $icon-color;
   }
 
   input {
@@ -24,6 +26,7 @@ $icon-color: #ffffff;
     border-radius: 4px;
     box-sizing: border-box;
     background-color: $background-color;
+    color: $input-text-color;
 
     &::placeholder {
       color: $placeholder-color;

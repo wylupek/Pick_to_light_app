@@ -1,7 +1,6 @@
-// SearchBar.js
 import React, { useRef, useEffect } from 'react';
 import './SearchBar.scss';
-import searchIcon from '../../assets/search.svg'; // Adjust the path as necessary
+import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 
 const SearchBar = ({ searchQuery, setSearchQuery }) => {
     const inputRef = useRef(null);
@@ -19,7 +18,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
 
     return (
         <div className="searchBar">
-            <img src={searchIcon} alt="Search Icon" className="searchIcon" />
+            <SearchIcon className="searchIcon" />
             <input
                 ref={inputRef}
                 type="text"
