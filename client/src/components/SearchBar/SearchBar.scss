@@ -1,3 +1,8 @@
+$placeholder-color: #ffffff;
+$border-color: #ffffff;
+$background-color: #282c34;
+$icon-color: #ffffff;
+
 .searchBar {
   position: relative;
   width: 100%;
@@ -7,16 +12,21 @@
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
   }
 
   input {
     width: 100%;
     padding: 8px 8px 8px 36px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid $border-color;
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: $background-color;
+
+    &::placeholder {
+      color: $placeholder-color;
+    }
   }
 }

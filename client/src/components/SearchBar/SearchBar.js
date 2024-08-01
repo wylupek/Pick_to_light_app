@@ -1,7 +1,7 @@
 // SearchBar.js
 import React, { useRef, useEffect } from 'react';
 import './SearchBar.scss';
-import searchIcon from '../../assets/searchicon.png'; // Adjust the path as necessary
+import searchIcon from '../../assets/search.svg'; // Adjust the path as necessary
 
 const SearchBar = ({ searchQuery, setSearchQuery }) => {
     const inputRef = useRef(null);
