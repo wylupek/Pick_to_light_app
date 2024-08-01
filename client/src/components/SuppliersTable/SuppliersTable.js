@@ -27,7 +27,9 @@ const SuppliersTable = ({ suppliers }) => {
 
     return (
         <>
-            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <header className="header">
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+            </header>
             <table className='suppliersTable'>
                 <thead>
                 <tr>

@@ -5,6 +5,7 @@ $row-even-background-color: #343944;
 .suppliersTable {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 40px;
 
     th, td {
         border: 1px solid $border-color;
@@ -26,4 +27,14 @@ $row-even-background-color: #343944;
     tr:nth-child(even) {
         background-color: $row-even-background-color;
     }
+}
+
+// Fixed container
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    //background-color: white;
+    z-index: 1000;
 }

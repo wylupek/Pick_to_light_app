@@ -4,6 +4,7 @@ $header-background-color: #282c34;
 .productTable {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 40px;
 
     th, td {
         border: 1px solid $border-color;
@@ -20,4 +21,14 @@ $header-background-color: #282c34;
         width: 1%;
         white-space: nowrap;
     }
+}
+
+// Fixed container
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    //background-color: white;
+    z-index: 1000;
 }
