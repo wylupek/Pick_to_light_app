@@ -26,12 +26,22 @@ const ProductsTable = () => {
 
     const deleteProduct = (id) => {
         console.log("Delete", id);
-        // Implement your delete logic here
     };
 
-    const displayProduct = (id) => {
-        console.log("Display", id);
-        // Implement your display logic here
+    const displayProduct = (productId) => {
+        console.log("Display", productId);
+        axios.post('http://192.168.1.100:8080/api/displaySector', {
+            json: {
+                productId: productId,
+                sector: 1 // TODO
+            }
+        })
+            .then(response => {
+                console.log(response.data.message);
+            })
+            .catch(error => {
+                console.error('Error calling the API:', error.response ? error.response.data : error.message);
+            });
     };
 
     if (filteredProducts.length === 0) {

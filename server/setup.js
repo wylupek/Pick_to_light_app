@@ -4,7 +4,6 @@ const path = require('path');
 const path_to_data = 'data/data.txt'
 
 
-// Connect to the SQLite database
 const db = new sqlite3.Database('./data/database.db', (err) => {
     if (err) {
         console.error('Could not connect to database', err);
@@ -14,7 +13,6 @@ const db = new sqlite3.Database('./data/database.db', (err) => {
 });
 
 db.serialize(() => {
-    // Drop the table products if it exists
     db.run(`DROP TABLE IF EXISTS products`, (err) => {
         if (err) {
             console.error('Error dropping table "products"', err);
@@ -23,7 +21,6 @@ db.serialize(() => {
         }
     });
 
-    // Drop the table values if it exists
     db.run(`DROP TABLE IF EXISTS product_values`, (err) => {
         if (err) {
             console.error('Error dropping table "product_values"', err);
@@ -32,7 +29,6 @@ db.serialize(() => {
         }
     });
 
-    // Create the table for static columns
     db.run(`CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         supp_id TEXT,
@@ -48,7 +44,7 @@ db.serialize(() => {
         }
     });
 
-   // Create the table for dynamic columns
+    // TODO split int-int in database
     db.run(`CREATE TABLE IF NOT EXISTS product_values (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         product_id INTEGER,
@@ -61,7 +57,7 @@ db.serialize(() => {
             console.log('Table "product_values" created successfully');
         }
     });
-    
+
     // Prepare statements
     const insertProductStmt = db.prepare("INSERT INTO products (supp_id, supp_name, ean, product_name, total_products) VALUES (?, ?, ?, ?, ?)");
     const insertProductValueStmt = db.prepare("INSERT INTO product_values (product_id, value) VALUES (?, ?)");
