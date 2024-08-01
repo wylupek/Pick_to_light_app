@@ -24,6 +24,16 @@ const ProductsTable = () => {
         product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    const deleteProduct = (id) => {
+        console.log("Delete", id);
+        // Implement your delete logic here
+    };
+
+    const displayProduct = (id) => {
+        console.log("Display", id);
+        // Implement your display logic here
+    };
+
     if (filteredProducts.length === 0) {
         return (
             <>
@@ -39,17 +49,17 @@ const ProductsTable = () => {
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             </header>
             <table className='productTable'>
-                <thead>
-                <tr>
-                    <th>EAN</th>
-                    <th>Name</th>
-                </tr>
-                </thead>
                 <tbody>
                 {filteredProducts.map(product => (
                     <tr key={product.ean}>
+                        <td className="deleteCell" onClick={() => deleteProduct(product.id)}>
+                            Delete
+                        </td>
                         <td>{product.ean}</td>
                         <td>{product.product_name}</td>
+                        <td className="displayCell" onClick={() => displayProduct(product.id)}>
+                            Display
+                        </td>
                     </tr>
                 ))}
                 </tbody>

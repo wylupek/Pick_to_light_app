@@ -1,5 +1,12 @@
+$fixed-header-background-color: #282c34;
 $border-color: #ffffff;
 $header-background-color: #282c34;
+$delete-background-color: #b92e2e;
+$delete-hover-background-color: #d93939;
+$delete-text-color: #ffffff;
+$display-background-color: #268600;
+$display-hover-background-color: #2d9400;
+$display-text-color: #ffffff;
 
 .productTable {
     width: 100%;
@@ -21,6 +28,34 @@ $header-background-color: #282c34;
         width: 1%;
         white-space: nowrap;
     }
+
+    // Last column
+    th:last-child, td:last-child {
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    .deleteCell {
+        background-color: $delete-background-color;
+        color: $delete-text-color;
+        cursor: pointer;
+        text-align: center;
+
+        &:hover {
+            background-color: $delete-hover-background-color;
+        }
+    }
+
+    .displayCell {
+        background-color: $display-background-color;
+        color: $display-text-color;
+        cursor: pointer;
+        text-align: center;
+
+        &:hover {
+            background-color: $display-hover-background-color;
+        }
+    }
 }
 
 // Fixed container
@@ -29,6 +64,6 @@ $header-background-color: #282c34;
     top: 0;
     left: 0;
     width: 100%;
-    //background-color: white;
+    background-color: $fixed-header-background-color;
     z-index: 1000;
 }

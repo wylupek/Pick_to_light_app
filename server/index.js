@@ -46,7 +46,7 @@ app.post('/api/productsBySupplierId', (req, res) => {
             return res.status(400).json({ error: 'Supplier ID is required' });
       }
 
-      db.all('SELECT ean, product_name FROM products WHERE supp_id = ?',
+      db.all('SELECT id, ean, product_name FROM products WHERE supp_id = ?',
           [supplierId], (err, rows) => {
                 if (err) {
                       console.error(err);
