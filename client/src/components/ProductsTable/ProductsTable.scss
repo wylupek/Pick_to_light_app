@@ -1,26 +1,24 @@
-$fixed-header-background-color: #282c34;
-$border-color: #ffffff;
-$header-background-color: #282c34;
+@import '../../variables';
+
 $delete-background-color: #b92e2e;
 $delete-hover-background-color: #d93939;
-$delete-text-color: #ffffff;
 $display-background-color: #268600;
 $display-hover-background-color: #2d9400;
-$display-text-color: #ffffff;
 
 .productTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 40px;
+    color: $main-text-color;
 
     th, td {
-        border: 1px solid $border-color;
+        border: 1px solid $main-border-color;
         padding: 8px;
         text-align: left;
     }
 
     th {
-        background-color: $header-background-color;
+        background-color: $main-background-color;
     }
 
     // First column
@@ -37,7 +35,7 @@ $display-text-color: #ffffff;
 
     .deleteCell {
         background-color: $delete-background-color;
-        color: $delete-text-color;
+        color: $main-text-color;
         cursor: pointer;
         text-align: center;
 
@@ -48,7 +46,7 @@ $display-text-color: #ffffff;
 
     .displayCell {
         background-color: $display-background-color;
-        color: $display-text-color;
+        color: $main-text-color;
         cursor: pointer;
         text-align: center;
 
@@ -64,6 +62,6 @@ $display-text-color: #ffffff;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: $fixed-header-background-color;
+    background-color: $main-background-color;
     z-index: 1000;
 }

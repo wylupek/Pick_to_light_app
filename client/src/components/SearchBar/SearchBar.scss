@@ -1,8 +1,4 @@
-$placeholder-color: #ffffff;
-$border-color: #ffffff;
-$background-color: #282c34;
-$icon-color: #ffffff;
-$input-text-color: #ffffff;
+@import '../../variables';
 
 .searchBar {
   position: relative;
@@ -15,21 +11,21 @@ $input-text-color: #ffffff;
     transform: translateY(-50%);
     width: 24px;
     height: 24px;
-    fill: $icon-color;
+    fill: $main-text-color;
   }
 
   input {
     width: 100%;
     padding: 8px 8px 8px 36px;
     font-size: 16px;
-    border: 1px solid $border-color;
+    border: 1px solid $main-border-color;
     border-radius: 4px;
     box-sizing: border-box;
-    background-color: $background-color;
-    color: $input-text-color;
+    background-color: $main-background-color;
+    color: $main-text-color;
 
     &::placeholder {
-      color: $placeholder-color;
+      color: $main-text-color;
     }
   }
 }

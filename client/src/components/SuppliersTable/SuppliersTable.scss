@@ -1,20 +1,19 @@
-$border-color: #ffffff;
-$header-background-color: #282c34;
-$row-even-background-color: #343944;
+@import '../../variables';
 
 .suppliersTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 40px;
+    color: $main-text-color;
 
     th, td {
-        border: 1px solid $border-color;
+        border: 1px solid $main-border-color;
         padding: 8px;
         text-align: left;
     }
 
     th {
-        background-color: $header-background-color;
+        background-color: $main-background-color;
     }
 
     // First column
@@ -26,7 +25,7 @@ $row-even-background-color: #343944;
 
     // Every second row
     tr:nth-child(even) {
-        background-color: $row-even-background-color;
+        background-color: $bright-background-color;
     }
 }
 

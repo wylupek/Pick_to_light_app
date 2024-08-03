@@ -1,5 +1,5 @@
 import axios from 'axios';
-import './App.css';
+import './App.scss';
 import React, { useEffect, useState } from 'react';
 import SuppliersTable from './components/SuppliersTable/SuppliersTable';
 import ProductsTable from './components/ProductsTable/ProductsTable';
