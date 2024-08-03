@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ProductsTable.scss';
 import SearchBar from '../SearchBar/SearchBar';
+import ControlPanel from '../ControlPanel/ControlPanel';
 
 const ProductsTable = () => {
     const { id } = useParams();
@@ -56,6 +57,7 @@ const ProductsTable = () => {
     return (
         <>
             <header className="header">
+                <ControlPanel />
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             </header>
             <table className='productTable'>

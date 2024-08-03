@@ -20,6 +20,7 @@ $row-even-background-color: #343944;
     // First column
     th:first-child, td:first-child {
         width: 1%;
+        text-align: center;
         white-space: nowrap;
     }
 
