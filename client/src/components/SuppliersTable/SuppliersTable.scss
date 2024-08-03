@@ -3,7 +3,7 @@
 .suppliersTable {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 40px;
+    margin-top: $suppliers-table-margin-top;
     color: $main-text-color;
 
     th, td {

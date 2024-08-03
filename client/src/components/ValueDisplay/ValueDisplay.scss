@@ -1,9 +1,12 @@
+@import '../../variables';
+
 .value-display {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #000;
-  border-radius: 20px;
-  padding: 10px 20px;
+  border: $control-panel-border-width solid $main-border-color;
+  border-radius: $control-panel-border-radius;
   font-size: 16px;
+  padding: 10px 0;
 }

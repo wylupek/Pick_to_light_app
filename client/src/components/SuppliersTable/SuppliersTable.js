@@ -31,12 +31,6 @@ const SuppliersTable = ({ suppliers }) => {
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             </header>
             <table className='suppliersTable'>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                </tr>
-                </thead>
                 <tbody>
                 {filteredSuppliers.map(supplier => (
                     <tr key={supplier.supp_id} onClick={() => handleRowClick(supplier.supp_id)}>

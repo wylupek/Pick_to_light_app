@@ -1,15 +1,14 @@
 @import '../../variables';
 
-$delete-background-color: #b92e2e;
-$delete-hover-background-color: #d93939;
-$display-background-color: #268600;
-$display-hover-background-color: #2d9400;
-
 .productTable {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 40px;
+    margin-top: $product-table-margin-top;
     color: $main-text-color;
+
+    @media (max-width: 500px) {
+        margin-top: $product-table-margin-top-media-500;
+    }
 
     th, td {
         border: 1px solid $main-border-color;
@@ -24,34 +23,43 @@ $display-hover-background-color: #2d9400;
     // First column
     th:first-child, td:first-child {
         width: 1%;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    // Second column
+    th:nth-child(2), td:nth-child(2) {
+        width: 1%;
+        text-align: center;
         white-space: nowrap;
     }
 
     // Last column
     th:last-child, td:last-child {
         width: 1%;
+        text-align: center;
         white-space: nowrap;
     }
 
     .deleteCell {
-        background-color: $delete-background-color;
-        color: $main-text-color;
+        background-color: $negative-color;
+        color: $button-text-color;
         cursor: pointer;
         text-align: center;
 
         &:hover {
-            background-color: $delete-hover-background-color;
+            background-color: $negative-bright-color;
         }
     }
 
     .displayCell {
-        background-color: $display-background-color;
-        color: $main-text-color;
+        background-color: $positive-color;
+        color: $button-text-color;
         cursor: pointer;
         text-align: center;
 
         &:hover {
-            background-color: $display-hover-background-color;
+            background-color: $positive-bright-color;
         }
     }
 }
