@@ -9,6 +9,7 @@ const ProductsTable = () => {
     const { id } = useParams();
     const [products, setProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [sector, setSector] = useState(0);
 
     useEffect(() => {
         axios.post('http://192.168.1.100:8080/api/productsBySupplierId', { id })
@@ -34,7 +35,7 @@ const ProductsTable = () => {
         axios.post('http://192.168.1.100:8080/api/displaySector', {
             json: {
                 productId: productId,
-                sector: 1 // TODO
+                sector: sector
             }
         })
             .then(response => {
@@ -57,7 +58,7 @@ const ProductsTable = () => {
     return (
         <>
             <header className="header">
-                <ControlPanel />
+                <ControlPanel sector={sector} setSector={setSector} />
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             </header>
             <table className='productTable'>
