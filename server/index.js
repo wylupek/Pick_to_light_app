@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Initialize SQLite database
 const db = new sqlite3.Database('./data/database.db');
-const MAX_SIZE = 50;
+const SECTOR_LENGTH = 48;
 
 app.get('/', (req, res) => {
       res.send('Hello from our server!')
@@ -72,26 +72,27 @@ app.post('/api/suppliers', (req, res) => {
 app.post('/api/displaySector', (req, res) => {
       const { productId, sector } = req.body.json;
       if (!sector || !productId) {
-            return res.status(400).json({ error: 'Product ID and Sector is required' });
+          return res.status(400).json({error: 'Product ID and Sector are required'});
       }
 
-      db.all('SELECT value FROM product_values WHERE product_id = ?',
-          [productId], (err, rows) => {
+      db.all('SELECT client_id, value FROM product_values WHERE product_id = ? AND client_id between ? and ?',
+          [productId, (sector - 1) * SECTOR_LENGTH + 1, sector * SECTOR_LENGTH],
+          (err, rows) => {
                 if (err) {
                       console.error(err);
                       return res.status(500).json({ error: 'Database query failed' });
                 } else if (rows.length === 0) {
                       return res.status(404).json({ error: 'Values not found' });
                 }
-                const values = rows.map(row => row.value).join(' ');
 
-                const valuesToOutput = new Array(MAX_SIZE).fill(0);
-                values.split(' ').forEach(pair => {
-                      const [position, value] = pair.split('-').map(Number);
-                      if (position > 0 && position <= MAX_SIZE) {
-                            valuesToOutput[position - 1] = value;
-                      }
-                });
+              const valuesToOutput = new Array(SECTOR_LENGTH).fill(0);
+              rows.forEach(row => {
+                  const position = row.client_id - (sector - 1) * SECTOR_LENGTH;
+                  const value = row.value;
+                  if (position > 0 && position <= SECTOR_LENGTH) {
+                      valuesToOutput[position - 1] = value;
+                  }
+              });
 
                 const filePath = path.join(__dirname, '/data/sectors', sector.toString() + '.txt');
                 fs.writeFile(filePath, valuesToOutput.join(' '), (err) => {

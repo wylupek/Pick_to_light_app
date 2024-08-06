@@ -48,7 +48,8 @@ db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS product_values (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         product_id INTEGER,
-        value TEXT,
+        client_id INTEGER,
+        value INTEGER,
         FOREIGN KEY (product_id) REFERENCES products (id)
     )`, (err) => {
         if (err) {
@@ -60,7 +61,7 @@ db.serialize(() => {
 
     // Prepare statements
     const insertProductStmt = db.prepare("INSERT INTO products (supp_id, supp_name, ean, product_name, total_products) VALUES (?, ?, ?, ?, ?)");
-    const insertProductValueStmt = db.prepare("INSERT INTO product_values (product_id, value) VALUES (?, ?)");
+    const insertProductValueStmt = db.prepare("INSERT INTO product_values (product_id, client_id, value) VALUES (?, ?, ?)");
 
     // Start a transaction
     db.run('BEGIN TRANSACTION');
@@ -74,9 +75,10 @@ db.serialize(() => {
     const insertDynamicValues = (productId, dynamicValues) => {
         return new Promise((resolve, reject) => {
             let count = 0;
-            dynamicValues.forEach(value => {
-                if (value) { // Skip empty values
-                    insertProductValueStmt.run(productId, value, (err) => {
+            dynamicValues.forEach(item => {
+                if (item) { // Skip empty items
+                    const [clientId, value] = item.split('-');
+                    insertProductValueStmt.run(productId, clientId, value, (err) => {
                         if (err) {
                             console.error(`Error inserting value: ${err.message}`);
                             reject(err);
