@@ -1,22 +1,32 @@
 import React from 'react';
 import BackButton from '../BackButton/BackButton';
-import ValueDisplay from '../ValueDisplay/ValueDisplay';
+import SectorPanel from '../SectorPanel/SectorPanel';
 import ArrowControls from '../ArrowControls/ArrowControls';
 import './ControlPanel.scss';
 
 const ControlPanel = ({ sector, setSector }) => {
     const handleIncrement = () => {
-        setSector(sector + 1);
+        if(sector !== 999) {
+            setSector(sector + 1);
+        }
     }
 
     const handleDecrement = () => {
-        setSector(sector - 1);
+        if(sector !== 0) {
+            setSector(sector - 1);
+        }
+    }
+
+    const handleSectorChange = (newSector) => {
+        if (newSector >= 0 && newSector <= 999) {
+            setSector(newSector);
+        }
     }
 
     return (
         <div className="control-panel">
             <BackButton />
-            <ValueDisplay value={sector} />
+            <SectorPanel value={sector} onChange={handleSectorChange} />
             <ArrowControls onIncrement={handleIncrement} onDecrement={handleDecrement} />
         </div>
     );

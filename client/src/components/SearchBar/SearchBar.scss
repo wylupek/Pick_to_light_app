@@ -12,11 +12,33 @@
     width: 24px;
     height: 24px;
     fill: $main-text-color;
+    cursor: pointer;
+    transition: transform 0.05s;
+
+    &:active {
+      transform: scale(1.15) translateY(-45%);
+    }
+  }
+
+  .deleteIcon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    fill: $main-text-color;
+    cursor: pointer;
+    transition: transform 0.05s;
+
+    &:active {
+      transform: scale(1.15) translateY(-45%);
+    }
   }
 
   input {
     width: 100%;
-    padding: 10px 8px 10px 36px;
+    padding: 10px 36px 10px 36px;
     font-size: 16px;
     border: 1px solid $main-border-color;
     border-radius: $control-panel-border-radius;
@@ -25,7 +47,17 @@
     color: $main-text-color;
 
     &::placeholder {
-      color: $main-text-color;
+      color: $placeholder-text-color;
     }
+
+    &:focus {
+      outline: none;
+      border-color: $main-border-color;
+      box-shadow: none;
+    }
+  }
+
+  input:focus {
+    -webkit-appearance: none;
   }
 }

@@ -6,12 +6,12 @@ const BackButton = () => {
     const navigate = useNavigate();
 
     const handleBack = () => {
-        navigate(-1); // This will navigate back to the previous page
+        navigate(-1);
     };
 
     return (
         <button className="back-button" onClick={handleBack}>
-            WRÓĆ
+            Back
         </button>
     );
 }

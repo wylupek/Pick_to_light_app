@@ -9,7 +9,7 @@ const ProductsTable = () => {
     const { id } = useParams();
     const [products, setProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [sector, setSector] = useState(0);
+    const [sector, setSector] = useState(1);
 
     useEffect(() => {
         axios.post('http://192.168.1.100:8080/api/productsBySupplierId', { id })
@@ -49,8 +49,11 @@ const ProductsTable = () => {
     if (filteredProducts.length === 0) {
         return (
             <>
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-                <p>No products available for this supplier</p>
+                <header className="header">
+                    <ControlPanel sector={sector} setSector={setSector}/>
+                    <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+                    <p>No products available for this supplier</p>
+                </header>
             </>
         );
     }
@@ -58,7 +61,7 @@ const ProductsTable = () => {
     return (
         <>
             <header className="header">
-                <ControlPanel sector={sector} setSector={setSector} />
+                <ControlPanel sector={sector} setSector={setSector}/>
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             </header>
             <table className='productTable'>
