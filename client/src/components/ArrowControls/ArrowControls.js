@@ -1,15 +1,13 @@
 import React from 'react';
 import './ArrowControls.scss';
+import { ReactComponent as LeftArrowIcon } from '../../assets/left_arrow.svg';
+import { ReactComponent as RightArrowIcon } from '../../assets/right_arrow.svg';
 
 const ArrowControls = ({ onIncrement, onDecrement }) => {
     return (
         <div className="arrow-controls">
-            <div className="arrow left" onClick={onDecrement}>
-                &lt;
-            </div>
-            <div className="arrow right" onClick={onIncrement}>
-                &gt;
-            </div>
+            <LeftArrowIcon className="arrow left" onClick={onDecrement} />
+            <RightArrowIcon className="arrow right" onClick={onIncrement} />
         </div>
     );
 }

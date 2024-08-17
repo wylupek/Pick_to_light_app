@@ -44,7 +44,6 @@ db.serialize(() => {
         }
     });
 
-    // TODO split int-int in database
     db.run(`CREATE TABLE IF NOT EXISTS product_values (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         product_id INTEGER,

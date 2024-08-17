@@ -11,14 +11,25 @@
 
   .arrow {
     cursor: pointer;
-    padding: 10px 0;
+    padding: 10px;
+    width: 24px;
+    height: 24px;
+    fill: $main-text-color;
   }
 
   .left {
     margin-left: 20px;
+    transition: transform 0.05s;
+    &:active {
+      transform: scale(1.15);
+    }
   }
 
   .right {
     margin-right: 20px;
+    transition: transform 0.05s;
+    &:active {
+      transform: scale(1.15);
+    }
   }
 }

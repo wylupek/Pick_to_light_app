@@ -39,5 +39,4 @@ function App() {
 
 export default App;
 
-// TODO Make it visible on local network
 // TODO Take care of max POST size
