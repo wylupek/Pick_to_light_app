@@ -4,6 +4,7 @@ import axios from 'axios';
 import './ProductsTable.scss';
 import SearchBar from '../SearchBar/SearchBar';
 import ControlPanel from '../ControlPanel/ControlPanel';
+import config from  '../../config';
 
 const ProductsTable = () => {
     const { id } = useParams();
@@ -12,7 +13,7 @@ const ProductsTable = () => {
     const [sector, setSector] = useState(1);
 
     useEffect(() => {
-        axios.post('http://192.168.1.100:8080/api/productsBySupplierId', { id })
+        axios.post(`${config.server.url}/api/productsBySupplierId`, { id })
             .then(response => {
                 setProducts(response.data);
             })
@@ -32,7 +33,7 @@ const ProductsTable = () => {
 
     const displayProduct = (productId) => {
         console.log("Display", productId);
-        axios.post('http://192.168.1.100:8080/api/displaySector', {
+        axios.post(`${config.server.url}/api/displaySector`, {
             json: {
                 productId: productId,
                 sector: sector

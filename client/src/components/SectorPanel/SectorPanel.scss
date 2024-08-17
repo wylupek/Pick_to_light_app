@@ -10,7 +10,9 @@
   font-size: 16px;
   padding: 10px 0;
   position: relative;
+
   box-sizing: border-box;
+  height: $control-panel-element-height;
 
   input {
     border: none;

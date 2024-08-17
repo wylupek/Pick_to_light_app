@@ -6,20 +6,27 @@ const fs = require('fs');
 const path = require('path');
 
 // Middleware
-app.use(cors())
+app.use(cors());
 app.use(express.json());
+
+// Config
+const config = require('./config');
+const SECTOR_LENGTH = config.constants.SECTOR_LENGTH;
+const SERVER_IP = config.server.ip;
+const SERVER_PORT = config.server.port;
 
 // Initialize SQLite database
 const db = new sqlite3.Database('./data/database.db');
-const SECTOR_LENGTH = 48;
+
+app.listen(SERVER_PORT, SERVER_IP, () => {
+    console.log(`server listening on http://${SERVER_IP}:${SERVER_PORT}`);
+});
+
+app.use('/data', express.static(path.join(__dirname, 'data/sectors')));
 
 app.get('/', (req, res) => {
-    res.send('Hello from our server!')
-})
-
-app.listen(8080, '192.168.1.100', () => {
-    console.log('server listening on port 8080')
-})
+    res.send('Hello from server!');
+});
 
 app.post('/api/productsBySupplierId', (req, res) => {
     const supplierId = req.body.id;
@@ -94,7 +101,7 @@ app.post('/api/displaySector', (req, res) => {
             }
         });
 
-        const filePath = path.join(__dirname, '/data/sectors', sector.toString() + '.txt');
+        const filePath = path.join(__dirname, '/data/sectors/sector' + sector.toString() + '.txt');
         fs.writeFile(filePath, valuesToOutput.join(' '), (err) => {
             if (err) {
                 console.error(err);

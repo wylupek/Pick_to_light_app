@@ -9,6 +9,9 @@
   border-radius: $control-panel-border-radius;
   font-size: 16px;
 
+  box-sizing: border-box;
+  height: $control-panel-element-height;
+
   .arrow {
     cursor: pointer;
     padding: 10px;

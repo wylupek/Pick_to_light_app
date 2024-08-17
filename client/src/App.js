@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import SuppliersTable from './components/SuppliersTable/SuppliersTable';
 import ProductsTable from './components/ProductsTable/ProductsTable';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import config from  './config';
 
 const apiSuppliers = (setSuppliers) => {
-    axios.post('http://192.168.1.100:8080/api/suppliers')
+    axios.post(`${config.server.url}/api/suppliers`)
         .then(response => {
             setSuppliers(response.data);
         })
@@ -18,7 +19,6 @@ const apiSuppliers = (setSuppliers) => {
 function App() {
     const [suppliers, setSuppliers] = useState([]);
 
-    // Fetch suppliers when the component mounts
     useEffect(() => {
         apiSuppliers(setSuppliers);
     }, []);
