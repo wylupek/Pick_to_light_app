@@ -58,56 +58,49 @@ db.serialize(() => {
         }
     });
 
-    // Prepare statements
     const insertProductStmt = db.prepare("INSERT INTO products (supp_id, supp_name, ean, product_name, total_products) VALUES (?, ?, ?, ?, ?)");
     const insertProductValueStmt = db.prepare("INSERT INTO product_values (product_id, client_id, value) VALUES (?, ?, ?)");
 
-    // Start a transaction
     db.run('BEGIN TRANSACTION');
 
-    // Read and process data
     const dataPath = path.join(__dirname, path_to_data);
     const data = fs.readFileSync(dataPath, 'utf8');
-    const rows = data.split('\r\n'); // For Windows newlines
+    const rows = data.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
 
-    // Function to handle insertion of product values
     const insertDynamicValues = (productId, dynamicValues) => {
         return new Promise((resolve, reject) => {
             let count = 0;
             dynamicValues.forEach(item => {
-                if (item) { // Skip empty items
-                    const [clientId, value] = item.split('-');
-                    insertProductValueStmt.run(productId, clientId, value, (err) => {
-                        if (err) {
-                            console.error(`Error inserting value: ${err.message}`);
-                            reject(err);
-                        } else {
-                            count++;
-                        }
-                        // Resolve once all values are processed
-                        if (count === dynamicValues.length) {
-                            resolve();
-                        }
-                    });
-                }
+                const [clientId, value] = item.split('-');
+                insertProductValueStmt.run(productId, clientId, value, (err) => {
+                    if (err) {
+                        console.error(`Error inserting value: ${err.message}`);
+                        reject(err);
+                    } else {
+                        count++;
+                    }
+                    if (count === dynamicValues.length) {
+                        resolve();
+                    }
+                });
             });
-            if (dynamicValues.length === 0) resolve(); // Handle case where there are no dynamic values
+            if (dynamicValues.length === 0) resolve();
         });
     };
 
-    // Process each row
     const processRows = async () => {
         for (const row of rows) {
-            if (row.trim()) { // Skip empty lines
-                const columns = row.split(';');
-                if (columns.length >= 5) { // Ensure there are at least 6 columns
+            if (row.trim()) {
+                let columns = row.split(';');
+                columns = columns.filter(value => value.trim() !== '');
+                if (columns.length >= 5) {
                     const supp_id = columns[0].trim();
                     const supp_name = columns[1].trim();
                     const ean = columns[2].trim();
                     const product_name = columns[3].trim();
                     const total_products = parseInt(columns[4].trim(), 10);
 
-                    if (!isNaN(total_products)) { // Check if total_products is a valid number
+                    if (!isNaN(total_products)) {
                         try {
                             await new Promise((resolve, reject) => {
                                 insertProductStmt.run(supp_id, supp_name, ean, product_name, total_products, function(err) {
@@ -134,14 +127,10 @@ db.serialize(() => {
         }
     };
 
-    // Execute row processing and handle finalization
     processRows().then(() => {
-        // Commit transaction
         db.run('COMMIT');
-        // Finalize statements
         insertProductStmt.finalize();
         insertProductValueStmt.finalize();
-        // Close the database connection
         db.close((err) => {
             if (err) {
                 console.error('Error closing database', err);
