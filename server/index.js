@@ -14,12 +14,11 @@ const config = require('./config');
 const SECTOR_LENGTH = config.constants.SECTOR_LENGTH;
 const SERVER_IP = config.server.ip;
 const SERVER_PORT = config.server.port;
-
-// Initialize SQLite database
+const SERVER_URL = config.server.url;
 const db = new sqlite3.Database('./data/database.db');
 
 app.listen(SERVER_PORT, SERVER_IP, () => {
-    console.log(`server listening on http://${SERVER_IP}:${SERVER_PORT}`);
+    console.log(`server listening on ${SERVER_URL}`);
 });
 
 app.use('/data', express.static(path.join(__dirname, 'data/sectors')));

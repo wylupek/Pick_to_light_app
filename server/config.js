@@ -5,7 +5,8 @@ const config = {
     },
     constants: {
         SECTOR_LENGTH: 48,
-    }
+    },
+    data_url_base: 'https://example.com/data'
 };
 config.server.url = `http://${config.server.ip}:${config.server.port}`;
 
