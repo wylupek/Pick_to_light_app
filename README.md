@@ -1,18 +1,18 @@
-### Client:
+## Client:
 ```
 npm install
 npm run start
 ```
 
 
-### Server:
+## Server:
 ```
 npm install
 node index.js
 ```
 
 
-### Database:
+## Database:
 ```
 node setup.js
    or
