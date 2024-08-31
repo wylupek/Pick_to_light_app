@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SuppliersTable.scss';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
+import axios from 'axios';
+import config from '../../config';
 
-const SuppliersTable = ({ suppliers }) => {
+const SuppliersTable = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const [suppliers, setSuppliers] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.post(`${config.server.url}/api/suppliers`)
+            .then(response => {
+                setSuppliers(response.data);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }, []);
 
     const handleRowClick = (supp_id) => {
         navigate(`/products/${supp_id}`);
-    }
+    };
 
     const filteredSuppliers = suppliers.filter(supplier =>
         supplier.supp_id.toString().includes(searchQuery) ||
@@ -28,7 +41,7 @@ const SuppliersTable = ({ suppliers }) => {
     return (
         <>
             <header className="header">
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </header>
             <table className='suppliersTable'>
                 <tbody>
@@ -42,6 +55,6 @@ const SuppliersTable = ({ suppliers }) => {
             </table>
         </>
     );
-}
+};
 
 export default SuppliersTable;

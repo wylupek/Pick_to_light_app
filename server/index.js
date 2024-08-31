@@ -110,3 +110,29 @@ app.post('/api/displaySector', (req, res) => {
         });
     });
 });
+
+app.post('/api/deleteById', (req, res) => {
+    const { id } = req.body;
+
+    db.serialize(() => {
+        db.run('DELETE FROM product_values WHERE product_id = ?', [id], function(err) {
+            if (err) {
+                console.error('Failed to delete product values:', err);
+                return res.status(500).json({ error: 'Database query failed' });
+            }
+        });
+
+        db.run('DELETE FROM products WHERE id = ?', [id], function(err) {
+            if (err) {
+                console.error('Failed to delete product:', err);
+                return res.status(500).json({ error: 'Database query failed' });
+            }
+
+            if (this.changes === 0) {
+                return res.status(404).json({ error: 'Product not found' });
+            }
+
+            res.json({ message: 'Product successfully deleted' });
+        });
+    });
+});

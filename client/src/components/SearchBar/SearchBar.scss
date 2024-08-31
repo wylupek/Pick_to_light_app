@@ -50,6 +50,7 @@
 
     &::placeholder {
       color: $placeholder-text-color;
+      user-select: none;
     }
 
     &:focus {

@@ -13,6 +13,7 @@
 
   box-sizing: border-box;
   height: $control-panel-element-height;
+  user-select: none;
 
   input {
     border: none;

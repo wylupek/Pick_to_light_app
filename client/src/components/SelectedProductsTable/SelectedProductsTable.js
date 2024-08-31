@@ -5,17 +5,27 @@ import ControlPanel from "../ControlPanel/ControlPanel";
 import SearchBar from "../SearchBar/SearchBar";
 import axios from "axios";
 import config from "../../config";
-import DeliverButton from '../DeliverButton/DeliverButton'; // Import the DeliverButton component
+import DeliverButton from '../DeliverButton/DeliverButton';
 
 const SelectedProductsTable = () => {
     const location = useLocation();
     const { selectedProducts } = location.state || { selectedProducts: [] };
     const [searchQuery, setSearchQuery] = useState('');
     const [sector, setSector] = useState(1);
-    const [selectedProduct, setSelectedProduct] = useState(null); // Only one selected product
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [products, setProducts] = useState(selectedProducts); // Local state for products
 
-    const deleteProduct = (id) => {
-        console.log("Delete", id);
+    const deleteProduct = (productId) => {
+        console.log("Delete", productId);
+        axios.post(`${config.server.url}/api/deleteById`, { id: productId })
+            .then(response => {
+                console.log(response.data.message);
+                // Update local state to remove the deleted product
+                setProducts(products.filter(product => product.id !== productId));
+            })
+            .catch(error => {
+                console.error('Error deleting product:', error.response ? error.response.data : error.message);
+            });
     };
 
     const displayProduct = (productId) => {
@@ -34,21 +44,21 @@ const SelectedProductsTable = () => {
             });
     };
 
-    const toggleSelectProduct = (product) => {
-        if (selectedProduct && selectedProduct.id === product.id) {
-            setSelectedProduct(null); // Deselect if the same product is clicked again
-        } else {
-            setSelectedProduct(product); // Select the clicked product
-        }
-    };
-
     const handleDisplayButtonClick = () => {
         if (selectedProduct) {
-            displayProduct(selectedProduct.id); // Call displayProduct with the selected product's ID
+            displayProduct(selectedProduct.id);
         }
     };
 
-    if (selectedProducts.length === 0) {
+    const toggleSelectProduct = (product) => {
+        if (selectedProduct && selectedProduct.id === product.id) {
+            setSelectedProduct(null);
+        } else {
+            setSelectedProduct(product);
+        }
+    };
+
+    if (products.length === 0) {
         return (
             <>
                 <header className="header">
@@ -68,13 +78,13 @@ const SelectedProductsTable = () => {
             </header>
             <table className='selectedProductsTable'>
                 <tbody>
-                {selectedProducts.map(product => (
+                {products.map(product => (
                     <tr
                         key={product.ean}
                         className={selectedProduct && selectedProduct.id === product.id ? 'selectedRow' : ''}
                         onClick={() => toggleSelectProduct(product)}
                     >
-                        <td className="deleteCell" onClick={() => deleteProduct(product.id)}>
+                        <td className="deleteCell" onClick={(e) => { e.stopPropagation(); deleteProduct(product.id); }}>
                             Delete
                         </td>
                         <td>{product.ean}</td>
