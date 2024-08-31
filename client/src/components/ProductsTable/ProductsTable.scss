@@ -6,7 +6,6 @@
     margin-top: $selected-products-table-margin-top;
     color: $main-text-color;
 
-
     th, td {
         border: 1px solid $main-border-color;
         padding: 8px;
@@ -21,6 +20,10 @@
         width: 1%;
         text-align: center;
         white-space: nowrap;
+    }
+
+    tr {
+        transition: background-color 0.5s ease; // Add transition to all rows
     }
 
     .selectedRow {

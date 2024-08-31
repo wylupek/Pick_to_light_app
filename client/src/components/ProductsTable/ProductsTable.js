@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ProductsTable.scss';
 import SearchBar from '../SearchBar/SearchBar';
-import ControlPanel from '../ControlPanel/ControlPanel';
 import config from '../../config';
 import DeliverButton from '../DeliverButton/DeliverButton';
 
 const ProductsTable = () => {
     const { id } = useParams();
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [sector, setSector] = useState(1);
     const [selectedProducts, setSelectedProducts] = useState([]);
+    const [lastClickTimes, setLastClickTimes] = useState({});
 
     useEffect(() => {
         axios.post(`${config.server.url}/api/productsBySupplierId`, { id })
@@ -31,15 +30,24 @@ const ProductsTable = () => {
     );
 
     const toggleSelectProduct = (product) => {
-        if (selectedProducts.includes(product)) {
-            setSelectedProducts(selectedProducts.filter(p => p !== product));
-        } else {
-            setSelectedProducts([...selectedProducts, product]);
+        const currentTime = Date.now();
+        const lastClickTime = lastClickTimes[product.ean] || 0;
+
+        if (currentTime - lastClickTime >= 500) {
+            if (selectedProducts.includes(product)) {
+                setSelectedProducts(selectedProducts.filter(p => p !== product));
+            } else {
+                setSelectedProducts([...selectedProducts, product]);
+            }
+            setLastClickTimes({
+                ...lastClickTimes,
+                [product.ean]: currentTime
+            });
         }
     };
 
     const handleDeliverButtonClick = () => {
-        navigate('/selected-products', { state: { selectedProducts } }); // Navigate to next page with selectedProducts
+        navigate('/selected-products', { state: { selectedProducts } });
     };
 
     if (filteredProducts.length === 0) {
