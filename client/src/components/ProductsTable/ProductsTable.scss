@@ -3,12 +3,9 @@
 .productTable {
     width: 100%;
     border-collapse: collapse;
-    margin-top: $product-table-margin-top;
+    margin-top: $selected-products-table-margin-top;
     color: $main-text-color;
 
-    @media (max-width: 500px) {
-        margin-top: $product-table-margin-top-media-500;
-    }
 
     th, td {
         border: 1px solid $main-border-color;
@@ -20,51 +17,17 @@
         background-color: $main-background-color;
     }
 
-    // First column
     th:first-child, td:first-child {
         width: 1%;
         text-align: center;
         white-space: nowrap;
     }
 
-    // Second column
-    th:nth-child(2), td:nth-child(2) {
-        width: 1%;
-        text-align: center;
-        white-space: nowrap;
-    }
-
-    // Last column
-    th:last-child, td:last-child {
-        width: 1%;
-        text-align: center;
-        white-space: nowrap;
-    }
-
-    .deleteCell {
-        background-color: $negative-color;
-        color: $button-text-color;
-        cursor: pointer;
-        text-align: center;
-
-        &:hover {
-            background-color: $negative-bright-color;
-        }
-    }
-
-    .displayCell {
-        background-color: $positive-color;
-        color: $button-text-color;
-        cursor: pointer;
-        text-align: center;
-
-        &:hover {
-            background-color: $positive-bright-color;
-        }
+    .selectedRow {
+        background-color: $selected-row-color;
     }
 }
 
-// Fixed container
 .header {
     position: fixed;
     top: 0;

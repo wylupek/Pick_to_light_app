@@ -1,0 +1,23 @@
+// DeliverButton.scss
+
+@import '../../variables';
+
+.deliver-button {
+  width: 100%;
+  background-color: $positive-color;
+  border: $control-panel-border-width solid $positive-color;
+  border-radius: $control-panel-border-radius;
+  color: $button-text-color;
+  padding: 11px 0;
+  font-size: 16px;
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: $control-panel-element-height;
+  z-index: 1001;
+
+  &:hover {
+    background-color: $positive-bright-color;
+  }
+}

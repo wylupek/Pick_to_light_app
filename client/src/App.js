@@ -3,6 +3,7 @@ import './App.scss';
 import React, { useEffect, useState } from 'react';
 import SuppliersTable from './components/SuppliersTable/SuppliersTable';
 import ProductsTable from './components/ProductsTable/ProductsTable';
+import SelectedProductsTable from './components/SelectedProductsTable/SelectedProductsTable';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import config from  './config';
 
@@ -30,6 +31,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<SuppliersTable suppliers={suppliers} />} />
                         <Route path="/products/:id" element={<ProductsTable />} />
+                        <Route path="/selected-products" element={<SelectedProductsTable />} />
                     </Routes>
                 </header>
             </div>

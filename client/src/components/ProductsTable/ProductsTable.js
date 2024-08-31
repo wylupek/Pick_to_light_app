@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
 import './ProductsTable.scss';
 import SearchBar from '../SearchBar/SearchBar';
 import ControlPanel from '../ControlPanel/ControlPanel';
-import config from  '../../config';
+import config from '../../config';
+import DeliverButton from '../DeliverButton/DeliverButton';
 
 const ProductsTable = () => {
     const { id } = useParams();
+    const navigate = useNavigate(); // Initialize useNavigate
     const [products, setProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sector, setSector] = useState(1);
+    const [selectedProducts, setSelectedProducts] = useState([]);
 
     useEffect(() => {
         axios.post(`${config.server.url}/api/productsBySupplierId`, { id })
@@ -27,34 +30,28 @@ const ProductsTable = () => {
         product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const deleteProduct = (id) => {
-        console.log("Delete", id);
+    const toggleSelectProduct = (product) => {
+        if (selectedProducts.includes(product)) {
+            setSelectedProducts(selectedProducts.filter(p => p !== product));
+        } else {
+            setSelectedProducts([...selectedProducts, product]);
+        }
     };
 
-    const displayProduct = (productId) => {
-        console.log("Display", productId);
-        axios.post(`${config.server.url}/api/displaySector`, {
-            json: {
-                productId: productId,
-                sector: sector
-            }
-        })
-            .then(response => {
-                console.log(response.data.message);
-            })
-            .catch(error => {
-                console.error('Error calling the API:', error.response ? error.response.data : error.message);
-            });
+    const handleDeliverButtonClick = () => {
+        navigate('/selected-products', { state: { selectedProducts } }); // Navigate to next page with selectedProducts
     };
 
     if (filteredProducts.length === 0) {
         return (
             <>
                 <header className="header">
-                    <ControlPanel sector={sector} setSector={setSector}/>
                     <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
                     <p>No products available for this supplier</p>
                 </header>
+                <DeliverButton onClick={handleDeliverButtonClick}>
+                    Deliver
+                </DeliverButton>
             </>
         );
     }
@@ -62,25 +59,25 @@ const ProductsTable = () => {
     return (
         <>
             <header className="header">
-                <ControlPanel sector={sector} setSector={setSector}/>
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             </header>
             <table className='productTable'>
                 <tbody>
                 {filteredProducts.map(product => (
-                    <tr key={product.ean}>
-                        <td className="deleteCell" onClick={() => deleteProduct(product.id)}>
-                            Delete
-                        </td>
+                    <tr
+                        key={product.ean}
+                        className={selectedProducts.includes(product) ? 'selectedRow' : ''}
+                        onClick={() => toggleSelectProduct(product)}
+                    >
                         <td>{product.ean}</td>
                         <td>{product.product_name}</td>
-                        <td className="displayCell" onClick={() => displayProduct(product.id)}>
-                            Display
-                        </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
+            <DeliverButton onClick={handleDeliverButtonClick}>
+                Deliver
+            </DeliverButton>
         </>
     );
 }

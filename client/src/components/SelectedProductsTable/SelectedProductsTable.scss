@@ -1,0 +1,58 @@
+@import '../../variables';
+
+.selectedProductsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: $product-table-margin-top;
+  color: $main-text-color;
+
+  @media (max-width: 500px) {
+    margin-top: $product-table-margin-top-media-500;
+  }
+
+  th, td {
+    border: 1px solid $main-border-color;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: $main-background-color;
+  }
+
+  th:first-child, td:first-child {
+    width: 1%;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  th:nth-child(2), td:nth-child(2) {
+    width: 1%;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .selectedRow {
+    background-color: $selected-row-color;
+  }
+
+  .deleteCell {
+    background-color: $negative-color;
+    color: $button-text-color;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover {
+      background-color: $negative-bright-color;
+    }
+  }
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $main-background-color;
+  z-index: 1000;
+}
