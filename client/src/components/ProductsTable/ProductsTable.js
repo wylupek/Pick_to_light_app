@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './ProductsTable.scss';
 import SearchBar from '../SearchBar/SearchBar';
@@ -9,6 +9,7 @@ import DeliverButton from '../DeliverButton/DeliverButton';
 const ProductsTable = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const [products, setProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedProducts, setSelectedProducts] = useState([]);
@@ -23,6 +24,12 @@ const ProductsTable = () => {
                 console.error(err);
             });
     }, [id]);
+
+    useEffect(() => {
+        if (location.state?.searchQuery) {
+            setSearchQuery(location.state.searchQuery)
+        }
+    }, [location.state]);
 
     const filteredProducts = products.filter(product =>
         product.ean.toString().includes(searchQuery) ||

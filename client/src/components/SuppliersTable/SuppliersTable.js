@@ -20,6 +20,25 @@ const SuppliersTable = () => {
             });
     }, []);
 
+    useEffect(() => {
+        if (searchQuery.length === 13 && /^\d{13}$/.test(searchQuery)) {
+            axios.post(`${config.server.url}/api/productByEan`, { ean: searchQuery })
+                .then(response => {
+                    const products = response.data;
+                    if (products.length > 0) {
+                        const product = products[0];
+                        navigate(`/products/${product.supp_id}`, {
+                            state: { searchQuery: product.ean}
+                        });
+                        setSearchQuery('');
+                    }
+                })
+                .catch(error => {
+                    console.error('Product not found!', error.message);
+                });
+        }
+    }, [searchQuery, navigate]);
+
     const handleRowClick = (supp_id) => {
         navigate(`/products/${supp_id}`);
     };

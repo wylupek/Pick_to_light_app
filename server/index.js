@@ -75,6 +75,21 @@ app.post('/api/suppliers', (req, res) => {
     });
 });
 
+app.post('/api/productByEan', (req, res) => {
+    const { ean } = req.body;  // Extract the EAN from the request body
+
+    db.all('SELECT supp_id, supp_name, ean, product_name FROM products WHERE ean = ?', [ean], (err, rows) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Database query failed' });
+        } else if (rows.length === 0) {
+            res.status(404).json({ error: 'Product not found' });
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
 app.post('/api/displaySector', (req, res) => {
     const { productId, sector } = req.body.json;
     if (!sector || !productId) {
