@@ -18,7 +18,20 @@ const ProductsTable = () => {
     useEffect(() => {
         axios.post(`${config.server.url}/api/productsBySupplierId`, { id })
             .then(response => {
-                setProducts(response.data);
+                const fetchedProducts = response.data;
+                setProducts(fetchedProducts);
+
+                // Copy specific object to apply highlight or proper selecting
+                const storedSelectedProducts = JSON.parse(sessionStorage.getItem('selectedProducts')) || [];
+                const matchedProducts = fetchedProducts.filter(product =>
+                    storedSelectedProducts.some(storedProduct => storedProduct.ean === product.ean)
+                );
+                const newProducts = storedSelectedProducts.filter(storedProduct =>
+                    !matchedProducts.some(matchedProduct => matchedProduct.ean === storedProduct.ean)
+                );
+                const updatedMatchedProducts = [...matchedProducts, ...newProducts];
+
+                setSelectedProducts(updatedMatchedProducts);
             })
             .catch(err => {
                 console.error(err);
@@ -27,7 +40,7 @@ const ProductsTable = () => {
 
     useEffect(() => {
         if (location.state?.searchQuery) {
-            setSearchQuery(location.state.searchQuery)
+            setSearchQuery(location.state.searchQuery);
         }
     }, [location.state]);
 
@@ -41,15 +54,22 @@ const ProductsTable = () => {
         const lastClickTime = lastClickTimes[product.ean] || 0;
 
         if (currentTime - lastClickTime >= 500) {
+            let updatedSelectedProducts;
+
             if (selectedProducts.includes(product)) {
-                setSelectedProducts(selectedProducts.filter(p => p !== product));
+                updatedSelectedProducts = selectedProducts.filter(p => p !== product);
             } else {
-                setSelectedProducts([...selectedProducts, product]);
+                updatedSelectedProducts = [...selectedProducts, product];
             }
+
+            setSelectedProducts(updatedSelectedProducts);
             setLastClickTimes({
                 ...lastClickTimes,
                 [product.ean]: currentTime
             });
+
+            // Save updated selected products to sessionStorage
+            sessionStorage.setItem('selectedProducts', JSON.stringify(updatedSelectedProducts));
         }
     };
 
@@ -61,7 +81,7 @@ const ProductsTable = () => {
         return (
             <>
                 <header className="header">
-                    <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+                    <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                     <p>No products available for this supplier</p>
                 </header>
                 <DeliverButton onClick={handleDeliverButtonClick}>
@@ -74,7 +94,7 @@ const ProductsTable = () => {
     return (
         <>
             <header className="header">
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </header>
             <table className='productTable'>
                 <tbody>
@@ -95,6 +115,6 @@ const ProductsTable = () => {
             </DeliverButton>
         </>
     );
-}
+};
 
 export default ProductsTable;
