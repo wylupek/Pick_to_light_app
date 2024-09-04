@@ -24,6 +24,9 @@ while ! is_wifi_connected; do
     sleep 5
 done
 
+echo "$(date): Downloading data and setting database..." >> "$APP_PATH/logs/startup.log"
+node url-to-file.js > "$APP_PATH/logs/server.log" 2>&1
+node setup.js >> "$APP_PATH/logs/server.log" 2>&1
 
 echo "$(date): Starting the client..." >> "$APP_PATH/logs/startup.log"
 cd "$APP_PATH/client/"
@@ -35,7 +38,7 @@ sleep 20
 
 echo "$(date): Starting the server..." >> "$APP_PATH/logs/startup.log"
 cd "$APP_PATH/server/"
-node index.js > "$APP_PATH/logs/server.log" 2>&1 &
+node index.js >> "$APP_PATH/logs/server.log" 2>&1 &
 SERVER_PID=$!
 echo "$(date): Server started with PID $SERVER_PID" >> "$APP_PATH/logs/startup.log"
 
