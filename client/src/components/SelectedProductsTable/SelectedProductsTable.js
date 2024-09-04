@@ -54,6 +54,11 @@ const SelectedProductsTable = () => {
         }
     };
 
+    const filteredProducts = selectedProducts.filter(product =>
+        product.ean.toString().includes(searchQuery) ||
+        product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     if (selectedProducts.length === 0) {
         return (
             <>
@@ -74,7 +79,7 @@ const SelectedProductsTable = () => {
             </header>
             <table className='selectedProductsTable'>
                 <tbody>
-                {selectedProducts.map(product => (
+                {filteredProducts.map(product => (
                     <tr
                         key={product.ean}
                         className={productToDisplay && productToDisplay.id === product.id ? 'selectedRow' : ''}
