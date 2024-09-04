@@ -4,6 +4,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: $product-table-margin-top;
+  margin-bottom: $margin-bottom;
   color: $main-text-color;
 
   @media (max-width: 500px) {
@@ -41,10 +42,19 @@
     color: $button-text-color;
     cursor: pointer;
     text-align: center;
+    transition: background-color 0.1s ease;
 
     &:hover {
       background-color: $negative-bright-color;
     }
+  }
+
+  tr {
+    transition: background-color 0.5s ease;
+  }
+
+  .selectedRow {
+    background-color: $selected-row-color;
   }
 }
 

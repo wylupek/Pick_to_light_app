@@ -74,7 +74,7 @@ const ProductsTable = () => {
     };
 
     const handleDeliverButtonClick = () => {
-        navigate('/selected-products', { state: { selectedProducts } });
+        navigate('/selected-products');
     };
 
     if (filteredProducts.length === 0) {

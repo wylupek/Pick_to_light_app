@@ -3,9 +3,11 @@ import './DeliverButton.scss';
 
 const DeliverButton = ({ onClick, children }) => {
     return (
-        <button className="deliver-button" onClick={onClick}>
-            {children}
-        </button>
+        <div className="deliver-div">
+            <button className="deliver-button" onClick={onClick}>
+                {children}
+            </button>
+        </div>
     );
 };
 

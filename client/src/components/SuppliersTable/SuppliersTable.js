@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import axios from 'axios';
 import config from '../../config';
+import DeliverButton from "../DeliverButton/DeliverButton";
 
 const SuppliersTable = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -48,6 +49,10 @@ const SuppliersTable = () => {
         supplier.supp_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    const handleDeliverButtonClick = () => {
+        navigate('/selected-products');
+    };
+
     if (filteredSuppliers.length === 0) {
         return (
             <>
@@ -72,6 +77,9 @@ const SuppliersTable = () => {
                 ))}
                 </tbody>
             </table>
+            <DeliverButton onClick={handleDeliverButtonClick}>
+                Deliver
+            </DeliverButton>
         </>
     );
 };

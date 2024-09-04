@@ -16,8 +16,19 @@
   left: 0;
   height: $control-panel-element-height;
   z-index: 1001;
+  transition: background-color 0.2s ease;
 
   &:hover {
     background-color: $positive-bright-color;
   }
+}
+
+.deliver-div {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc($control-panel-element-height - 10px);
+  background-color: $main-background-color;
+  z-index: 1000;
 }

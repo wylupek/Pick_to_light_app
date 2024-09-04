@@ -4,6 +4,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: $selected-products-table-margin-top;
+    margin-bottom: $margin-bottom;
     color: $main-text-color;
 
     th, td {
@@ -23,7 +24,7 @@
     }
 
     tr {
-        transition: background-color 0.5s ease; // Add transition to all rows
+        transition: background-color 0.5s ease;
     }
 
     .selectedRow {

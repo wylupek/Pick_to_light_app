@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import './SelectedProductsTable.scss';
 import ControlPanel from "../ControlPanel/ControlPanel";
 import SearchBar from "../SearchBar/SearchBar";
@@ -8,28 +7,25 @@ import config from "../../config";
 import DeliverButton from '../DeliverButton/DeliverButton';
 
 const SelectedProductsTable = () => {
-    const location = useLocation();
-    const { selectedProducts } = location.state || { selectedProducts: [] };
     const [searchQuery, setSearchQuery] = useState('');
     const [sector, setSector] = useState(1);
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [products, setProducts] = useState(selectedProducts); // Local state for products
+    const [productToDisplay, setProductToDisplay] = useState(null);
+    const [selectedProducts, setSelectedProducts] = useState([]);
 
-    const deleteProduct = (productId) => {
-        console.log("Delete", productId);
-        axios.post(`${config.server.url}/api/deleteById`, { id: productId })
-            .then(response => {
-                console.log(response.data.message);
-                // Update local state to remove the deleted product
-                setProducts(products.filter(product => product.id !== productId));
-            })
-            .catch(error => {
-                console.error('Error deleting product:', error.response ? error.response.data : error.message);
-            });
+    useEffect(() => {
+        const storedSelectedProducts = JSON.parse(sessionStorage.getItem('selectedProducts')) || [];
+        setSelectedProducts(storedSelectedProducts);
+    }, []);
+
+    const unselect = (productId) => {
+        // console.log("Unselect", productId);
+        const updatedProducts = selectedProducts.filter(product => product.id !== productId);
+        setSelectedProducts(updatedProducts);
+        sessionStorage.setItem('selectedProducts', JSON.stringify(updatedProducts));
     };
 
     const displayProduct = (productId) => {
-        console.log("Display", productId);
+        // console.log("Display", productId);
         axios.post(`${config.server.url}/api/displaySector`, {
             json: {
                 productId: productId,
@@ -45,20 +41,20 @@ const SelectedProductsTable = () => {
     };
 
     const handleDisplayButtonClick = () => {
-        if (selectedProduct) {
-            displayProduct(selectedProduct.id);
+        if (productToDisplay) {
+            displayProduct(productToDisplay.id);
         }
     };
 
     const toggleSelectProduct = (product) => {
-        if (selectedProduct && selectedProduct.id === product.id) {
-            setSelectedProduct(null);
+        if (productToDisplay && productToDisplay.id === product.id) {
+            setProductToDisplay(null);
         } else {
-            setSelectedProduct(product);
+            setProductToDisplay(product);
         }
     };
 
-    if (products.length === 0) {
+    if (selectedProducts.length === 0) {
         return (
             <>
                 <header className="header">
@@ -78,14 +74,14 @@ const SelectedProductsTable = () => {
             </header>
             <table className='selectedProductsTable'>
                 <tbody>
-                {products.map(product => (
+                {selectedProducts.map(product => (
                     <tr
                         key={product.ean}
-                        className={selectedProduct && selectedProduct.id === product.id ? 'selectedRow' : ''}
+                        className={productToDisplay && productToDisplay.id === product.id ? 'selectedRow' : ''}
                         onClick={() => toggleSelectProduct(product)}
                     >
-                        <td className="deleteCell" onClick={(e) => { e.stopPropagation(); deleteProduct(product.id); }}>
-                            Delete
+                        <td className="deleteCell" onClick={(e) => { e.stopPropagation(); unselect(product.id); }}>
+                            Unselect
                         </td>
                         <td>{product.ean}</td>
                         <td>{product.product_name}</td>
