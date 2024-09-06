@@ -56,8 +56,13 @@ const SuppliersTable = () => {
     if (filteredSuppliers.length === 0) {
         return (
             <>
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-                <p>No suppliers available</p>
+                <header className="header">
+                    <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+                    <p>No suppliers available</p>
+                </header>
+                <DeliverButton onClick={handleDeliverButtonClick}>
+                    Deliver
+                </DeliverButton>
             </>
         );
     }

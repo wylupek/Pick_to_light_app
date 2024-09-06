@@ -1,16 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import './SearchBar.scss';
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete_x.svg';
 
 const SearchBar = ({ searchQuery, setSearchQuery }) => {
     const inputRef = useRef(null);
-
-    useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, []);
 
     const handleChange = (e) => {
         setSearchQuery(e.target.value);

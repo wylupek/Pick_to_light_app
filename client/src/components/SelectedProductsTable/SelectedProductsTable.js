@@ -59,7 +59,7 @@ const SelectedProductsTable = () => {
         product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    if (selectedProducts.length === 0) {
+    if (filteredProducts.length === 0) {
         return (
             <>
                 <header className="header">
