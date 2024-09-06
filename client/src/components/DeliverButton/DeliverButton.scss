@@ -1,25 +1,37 @@
-// DeliverButton.scss
-
 @import '../../variables';
 
 .deliver-button {
   width: 100%;
   background-color: $positive-color;
-  border: $control-panel-border-width solid $positive-color;
+  border: none;
   border-radius: $control-panel-border-radius;
   color: $button-text-color;
-  padding: 11px 0;
-  font-size: 16px;
+  padding: 0 0 $Deliver-button-padding-bottom 0;
+  font-size: $deliver-button-font-size;
   cursor: pointer;
   position: fixed;
   bottom: 0;
   left: 0;
-  height: $control-panel-element-height;
+  height: $deliver-button-height;
   z-index: 1001;
-  transition: background-color 0.2s ease;
 
-  &:hover {
-    background-color: $positive-bright-color;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+
+  &.clicked {
+    animation: colorTransition 1.5s ease-in-out forwards;
+  }
+}
+
+@keyframes colorTransition {
+  0% {
+    background-color: $positive-color;
+  }
+  50% {
+    background-color: $positive-additional-color;
+  }
+  100% {
+    background-color: $positive-color;
   }
 }
 

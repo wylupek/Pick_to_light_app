@@ -5,6 +5,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import axios from "axios";
 import config from "../../config";
 import DeliverButton from '../DeliverButton/DeliverButton';
+import SelectedProductsItem from '../SelectedProductsItem/SelectedProductsItem';
 
 const SelectedProductsTable = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -18,14 +19,12 @@ const SelectedProductsTable = () => {
     }, []);
 
     const unselect = (productId) => {
-        // console.log("Unselect", productId);
         const updatedProducts = selectedProducts.filter(product => product.id !== productId);
         setSelectedProducts(updatedProducts);
         sessionStorage.setItem('selectedProducts', JSON.stringify(updatedProducts));
     };
 
     const displayProduct = (productId) => {
-        // console.log("Display", productId);
         axios.post(`${config.server.url}/api/displaySector`, {
             json: {
                 productId: productId,
@@ -77,23 +76,17 @@ const SelectedProductsTable = () => {
                 <ControlPanel sector={sector} setSector={setSector} />
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </header>
-            <table className='selectedProductsTable'>
-                <tbody>
+            <div className="selectedProductsList">
                 {filteredProducts.map(product => (
-                    <tr
+                    <SelectedProductsItem
                         key={product.ean}
-                        className={productToDisplay && productToDisplay.id === product.id ? 'selectedRow' : ''}
-                        onClick={() => toggleSelectProduct(product)}
-                    >
-                        <td className="deleteCell" onClick={(e) => { e.stopPropagation(); unselect(product.id); }}>
-                            Unselect
-                        </td>
-                        <td>{product.ean}</td>
-                        <td>{product.product_name}</td>
-                    </tr>
+                        product={product}
+                        onSelect={toggleSelectProduct}
+                        onUnselect={unselect}
+                        isSelected={productToDisplay && productToDisplay.id === product.id}
+                    />
                 ))}
-                </tbody>
-            </table>
+            </div>
             <DeliverButton onClick={handleDisplayButtonClick}>
                 Display
             </DeliverButton>

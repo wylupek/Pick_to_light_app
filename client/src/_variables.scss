@@ -1,27 +1,41 @@
-$main-background-color: #282c34;
-$bright-background-color: #343944;
+// Main Colors
+$main-background-color: #1a1a1a;
+$bright-background-color: #252525;
 $negative-color: #b92e2e;
 $negative-bright-color: #d93939;
 $positive-color: #268600;
 $positive-bright-color: #2d9400;
+$positive-additional-color: #47ff00;
 
-
+// Border styles
 $main-border-color: #ffffff;
 $control-panel-border-radius: 10px;
 $control-panel-border-width: 1px;
 
+// Text colors
 $main-text-color: #ffffff;
-$placeholder-text-color: rgba(255, 255, 255, 0.64);
+$placeholder-text-color: #FFFFFFA3;
 $button-text-color: #ffffff;
-
-$selected-row-color: #42464d;
-
 $link-color: #61dafb;
 
+// Display screen styles
+$selected-item-color: #268600;
+$selected-item-ean-color: #a6a6a6;
+$selected-item-ean-font-size: 10px;
+$selected-item-name-font-size:16px;
+
+// Placement margins
 $product-table-margin-top: 86px;
 $product-table-margin-top-media-500: 128px;
 $suppliers-table-margin-top: 42px;
 $selected-products-table-margin-top: 42px;
-$margin-bottom: 42px;
 
+// Elements sizes
 $control-panel-element-height: 40px;
+
+// Deliver button
+$deliver-button-height: 70px;
+$deliver-button-font-size: 25px;
+$Deliver-button-padding-bottom: 10px;
+
+$margin-bottom: 72px;

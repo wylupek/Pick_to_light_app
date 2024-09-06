@@ -1,0 +1,45 @@
+@import '../../variables';
+
+.selectedProductsItem {
+  display: flex;
+  align-items: center;
+  border-radius: $control-panel-border-radius;
+  background-color: $bright-background-color;
+  cursor: pointer;
+  transition: background-color 0.7s ease;
+  margin: 5px 2px 0 2px;
+  padding: 7px 2px 7px 2px;
+
+  &.selected {
+    background-color: $selected-item-color;
+  }
+
+  .unselectIcon {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    fill: $main-text-color;
+    transition: opacity 0.1s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .productInfo {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    flex: 1;
+  }
+
+  .productEan {
+    font-weight: bold;
+    font-size: $selected-item-ean-font-size;
+    color: $selected-item-ean-color;
+  }
+
+  .productName {
+    font-size: $selected-item-name-font-size;
+  }
+}

@@ -1,62 +1,16 @@
 @import '../../variables';
 
-.selectedProductsTable {
+.selectedProductsList {
   width: 100%;
-  border-collapse: collapse;
   margin-top: $product-table-margin-top;
   margin-bottom: $margin-bottom;
-  color: $main-text-color;
+  box-sizing: border-box;
 
   @media (max-width: 500px) {
     margin-top: $product-table-margin-top-media-500;
   }
-
-  th, td {
-    border: 1px solid $main-border-color;
-    padding: 8px;
-    text-align: left;
-  }
-
-  th {
-    background-color: $main-background-color;
-  }
-
-  th:first-child, td:first-child {
-    width: 1%;
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  th:nth-child(2), td:nth-child(2) {
-    width: 1%;
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .selectedRow {
-    background-color: $selected-row-color;
-  }
-
-  .deleteCell {
-    background-color: $negative-color;
-    color: $button-text-color;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.1s ease;
-
-    &:hover {
-      background-color: $negative-bright-color;
-    }
-  }
-
-  tr {
-    transition: background-color 0.5s ease;
-  }
-
-  .selectedRow {
-    background-color: $selected-row-color;
-  }
 }
+
 
 .header {
   position: fixed;
