@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './SuppliersPage.scss';
-import SuppliersList from '../../components/SuppliersList/SuppliersList';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DeliverButton from '../../components/DeliverButton/DeliverButton';
 import config from '../../config';
+import CustomList from "../../components/CustomList/CustomList";
 
 const SuppliersPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -46,13 +46,15 @@ const SuppliersPage = () => {
         supplier.supp_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const handleRowClick = (supp_id) => {
-        navigate(`/products/${supp_id}`);
+    const handleRowClick = (supplier) => {
+        navigate(`/products/${supplier.supp_id}`);
     };
 
     const handleDeliverButtonClick = () => {
         navigate('/selected-products');
     };
+
+    console.log(filteredSuppliers)
 
     return (
         <div className="SuppliersPage">
@@ -65,7 +67,15 @@ const SuppliersPage = () => {
                 </>
             ) : (
                 <>
-                    <SuppliersList suppliers={filteredSuppliers} onRowClick={handleRowClick} />
+                    <div className="listContainer">
+                        <CustomList
+                            items={filteredSuppliers}
+                            keyAttribute={"supp_id"}
+                            idAttribute={"supp_id"}
+                            textAttribute={"supp_name"}
+                            onClick={handleRowClick}
+                        />
+                    </div>
                 </>
             )}
             <DeliverButton onClick={handleDeliverButtonClick}>

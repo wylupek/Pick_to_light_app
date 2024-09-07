@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './ProductsPage.scss';
-import ProductsList from '../../components/ProductsList/ProductsList';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import DeliverButton from '../../components/DeliverButton/DeliverButton';
 import axios from 'axios';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import config from '../../config';
+import CustomList from "../../components/CustomList/CustomList";
 
 const ProductsPage = () => {
     const { id } = useParams();
@@ -83,11 +83,16 @@ const ProductsPage = () => {
                 </>
             ) : (
                 <>
-                    <ProductsList
-                        products={filteredProducts}
-                        selectedProducts={selectedProducts}
-                        onRowClick={toggleSelectProduct}
-                    />
+                    <div className="listContainer">
+                        <CustomList
+                            items={filteredProducts}
+                            keyAttribute={"id"}
+                            idAttribute={"ean"}
+                            textAttribute={"product_name"}
+                            selectedItems={selectedProducts.map(p => p.id)}
+                            onClick={toggleSelectProduct}
+                        />
+                    </div>
                 </>
             )}
             <DeliverButton onClick={handleDeliverButtonClick}>

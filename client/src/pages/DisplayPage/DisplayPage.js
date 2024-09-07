@@ -74,16 +74,19 @@ const DisplayPage = () => {
                 <p>No products selected</p>
             ) : (
                 <>
-                    <CustomList
-                        items={filteredProducts}
-                        keyAttribute={"id"}
-                        idAttribute={"ean"}
-                        textAttribute={"product_name"}
-                        selectedItems={[productToDisplay]}
-                        onClick={toggleSelectProduct}
-                        onIconClick={unselectProduct}
-                        Icon={UnselectIcon}
-                    />
+                    <div className="listContainer">
+                        <CustomList
+                            items={filteredProducts}
+                            keyAttribute={"id"}
+                            idAttribute={"ean"}
+                            textAttribute={"product_name"}
+                            selectedItems={[productToDisplay]}
+                            onClick={toggleSelectProduct}
+                            onIconClick={unselectProduct}
+                            Icon={UnselectIcon}
+                        />
+                    </div>
+
                     <DeliverButton onClick={handleDisplayButtonClick}>
                         Display
                     </DeliverButton>

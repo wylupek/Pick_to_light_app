@@ -2,13 +2,20 @@
 
 .SelectedProductsPage {
   width: 100%;
-}
 
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: $main-background-color;
-  z-index: 1000;
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: $main-background-color;
+    z-index: 1000;
+  }
+
+  .listContainer {
+    margin-top: $product-table-margin-top;
+    @media (max-width: 500px) {
+      margin-top: $product-table-margin-top-media-500;
+    }
+  }
 }
