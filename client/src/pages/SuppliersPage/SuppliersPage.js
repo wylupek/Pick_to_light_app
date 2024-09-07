@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './SuppliersPage.scss';
-import SuppliersTable from '../../components/SuppliersTable/SuppliersTable';
+import SuppliersList from '../../components/SuppliersList/SuppliersList';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -65,7 +65,7 @@ const SuppliersPage = () => {
                 </>
             ) : (
                 <>
-                    <SuppliersTable suppliers={filteredSuppliers} onRowClick={handleRowClick} />
+                    <SuppliersList suppliers={filteredSuppliers} onRowClick={handleRowClick} />
                 </>
             )}
             <DeliverButton onClick={handleDeliverButtonClick}>

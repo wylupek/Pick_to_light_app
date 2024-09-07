@@ -1,8 +1,8 @@
 import React from 'react';
 import DisplayItem from '../DisplayItem/DisplayItem';
-import './DisplayTable.scss';
+import './DisplayList.scss';
 
-const DisplayTable = ({ products, productToDisplay, toggleSelectProduct, unselectProduct }) => {
+const DisplayList = ({ products, productToDisplay, toggleSelectProduct, unselectProduct }) => {
     return (
         <div className="selectedProductsList">
             {products.map(product => (
@@ -18,4 +18,4 @@ const DisplayTable = ({ products, productToDisplay, toggleSelectProduct, unselec
     );
 };
 
-export default DisplayTable;
+export default DisplayList;

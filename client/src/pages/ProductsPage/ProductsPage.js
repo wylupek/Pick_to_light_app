@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ProductsPage.scss';
-import ProductsTable from '../../components/ProductsTable/ProductsTable';
+import ProductsList from '../../components/ProductsList/ProductsList';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import DeliverButton from '../../components/DeliverButton/DeliverButton';
 import axios from 'axios';
@@ -83,7 +83,7 @@ const ProductsPage = () => {
                 </>
             ) : (
                 <>
-                    <ProductsTable
+                    <ProductsList
                         products={filteredProducts}
                         selectedProducts={selectedProducts}
                         onRowClick={toggleSelectProduct}

@@ -1,7 +1,7 @@
 import React from 'react';
-import './SuppliersTable.scss';
+import './SuppliersList.scss';
 
-const SuppliersTable = ({ suppliers, onRowClick }) => {
+const SuppliersList = ({ suppliers, onRowClick }) => {
     return (
         <table className='suppliersTable'>
             <tbody>
@@ -16,4 +16,4 @@ const SuppliersTable = ({ suppliers, onRowClick }) => {
     );
 };
 
-export default SuppliersTable;
+export default SuppliersList;

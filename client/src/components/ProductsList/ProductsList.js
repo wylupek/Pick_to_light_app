@@ -1,7 +1,7 @@
 import React from 'react';
-import './ProductsTable.scss';
+import './ProductsList.scss';
 
-const ProductsTable = ({ products, selectedProducts, onRowClick }) => {
+const ProductsList = ({ products, selectedProducts, onRowClick }) => {
     return (
         <table className='productTable'>
             <tbody>
@@ -20,4 +20,4 @@ const ProductsTable = ({ products, selectedProducts, onRowClick }) => {
     );
 };
 
-export default ProductsTable;
+export default ProductsList;
