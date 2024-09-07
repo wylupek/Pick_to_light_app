@@ -31,12 +31,3 @@
         background-color: $selected-item-color;
     }
 }
-
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: $main-background-color;
-    z-index: 1000;
-}
