@@ -1,8 +1,8 @@
 import React from 'react';
-import './SelectedProductsItem.scss';
+import './DisplayItem.scss';
 import { ReactComponent as UnselectIcon } from '../../assets/delete.svg';
 
-const SelectedProductsItem = ({ product, onSelect, onUnselect, isSelected }) => {
+const DisplayItem = ({ product, onSelect, onUnselect, isSelected }) => {
     return (
         <div className={`selectedProductsItem ${isSelected ? 'selected' : ''}`}
             onClick={() => onSelect(product)}
@@ -23,4 +23,4 @@ const SelectedProductsItem = ({ product, onSelect, onUnselect, isSelected }) => 
     );
 };
 
-export default SelectedProductsItem;
+export default DisplayItem;

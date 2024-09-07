@@ -2,7 +2,7 @@ import './App.scss';
 import React from 'react';
 import SuppliersPage from "./Pages/SuppliersPage/SuppliersPage";
 import ProductsPage from "./Pages/ProductsPage/ProductsPage"
-import SelectedProductsTable from './components/SelectedProductsTable/SelectedProductsTable';
+import DisplayPage from './Pages/DisplayPage/DisplayPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<SuppliersPage />} />
                         <Route path="/products/:id" element={<ProductsPage />} />
-                        <Route path="/selected-products" element={<SelectedProductsTable />} />
+                        <Route path="/selected-products" element={<DisplayPage />} />
                     </Routes>
                 </header>
             </div>
