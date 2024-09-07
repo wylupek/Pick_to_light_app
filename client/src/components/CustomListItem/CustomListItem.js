@@ -1,11 +1,11 @@
 import React from 'react';
-import './ListItem.scss';
+import './CustomListItem.scss';
 
-const ListItem = ({ item, idAttribute, textAttribute,
+const CustomListItem = ({ item, idAttribute, textAttribute,
                       isSelected, onClick, onIconClick, Icon }) => {
     return (
         <div
-            className={`listItem ${isSelected ? 'selected' : ''} ${Icon ? 'withIcon' : 'withoutIcon'}`}
+            className={`customListItem ${isSelected ? 'selected' : ''} ${Icon ? 'withIcon' : 'withoutIcon'}`}
             onClick={() => onClick(item)}
         >
             {Icon && (
@@ -31,4 +31,4 @@ const ListItem = ({ item, idAttribute, textAttribute,
     );
 };
 
-export default ListItem;
+export default CustomListItem;

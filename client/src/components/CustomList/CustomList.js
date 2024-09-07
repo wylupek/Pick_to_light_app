@@ -1,13 +1,13 @@
 import React from 'react';
-import ListItem from '../ListItem/ListItem';
-import './DisplayList.scss';
+import CustomListItem from '../CustomListItem/CustomListItem';
+import './CustomList.scss';
 
-const DisplayList = ({ items, keyAttribute, idAttribute, textAttribute,
+const CustomList = ({ items, keyAttribute, idAttribute, textAttribute,
                          selectedItems, onClick, onIconClick, Icon }) => {
     return (
-        <div className="displayList">
+        <div className="customList">
             {items.map(item => (
-                <ListItem
+                <CustomListItem
                     key={item[keyAttribute]}
                     item={item}
                     idAttribute={idAttribute}
@@ -22,4 +22,4 @@ const DisplayList = ({ items, keyAttribute, idAttribute, textAttribute,
     );
 };
 
-export default DisplayList;
+export default CustomList;

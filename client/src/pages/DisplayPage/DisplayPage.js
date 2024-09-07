@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DisplayPage.scss';
-import DisplayList from '../../components/DisplayList/DisplayList';
+import CustomList from '../../components/CustomList/CustomList';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import DeliverButton from '../../components/DeliverButton/DeliverButton';
@@ -74,7 +74,7 @@ const DisplayPage = () => {
                 <p>No products selected</p>
             ) : (
                 <>
-                    <DisplayList
+                    <CustomList
                         items={filteredProducts}
                         keyAttribute={"id"}
                         idAttribute={"ean"}
