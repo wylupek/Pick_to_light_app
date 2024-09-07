@@ -1,20 +1,22 @@
 import React from 'react';
-import './DisplayItem.scss';
-import { ReactComponent as UnselectIcon } from '../../assets/delete.svg';
+import './ListItem.scss';
 
-const DisplayItem = ({ product, onSelect, onUnselect, isSelected }) => {
+const ListItem = ({ product, onSelect, isSelected, showUnselectIcon, UnselectIcon, onUnselect }) => {
     return (
-        <div className={`selectedProductsItem ${isSelected ? 'selected' : ''}`}
+        <div
+            className={`listItem ${isSelected ? 'selected' : ''} ${showUnselectIcon ? 'withIcon' : 'withoutIcon'}`}
             onClick={() => onSelect(product)}
         >
-            <UnselectIcon alt="Unselect"
-                className="unselectIcon"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    onUnselect(product.id);
-                }}
-            />
-
+            {showUnselectIcon && UnselectIcon && (
+                <UnselectIcon
+                    alt="Unselect"
+                    className="unselectIcon"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onUnselect(product.id);
+                    }}
+                />
+            )}
             <div className="productInfo">
                 <div className="productEan">{product.ean}</div>
                 <div className="productName">{product.product_name}</div>
@@ -23,4 +25,4 @@ const DisplayItem = ({ product, onSelect, onUnselect, isSelected }) => {
     );
 };
 
-export default DisplayItem;
+export default ListItem;

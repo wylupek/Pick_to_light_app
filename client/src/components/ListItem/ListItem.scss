@@ -1,6 +1,6 @@
 @import '../../variables';
 
-.selectedProductsItem {
+.listItem {
   display: flex;
   align-items: center;
   border-radius: $control-panel-border-radius;
@@ -8,7 +8,11 @@
   cursor: pointer;
   transition: background-color 0.7s ease;
   margin: 5px 2px 0 2px;
-  padding: 7px 2px 7px 2px;
+  padding: 7px 10px 7px 2px;
+
+  &.withoutIcon {
+    padding-left: 10px;
+  }
 
   &.selected {
     background-color: $selected-item-color;
