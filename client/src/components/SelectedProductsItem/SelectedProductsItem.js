@@ -1,5 +1,5 @@
 import React from 'react';
-import './SelectedProductsItem.scss'; // Ensure you create this file for styling
+import './SelectedProductsItem.scss';
 import { ReactComponent as UnselectIcon } from '../../assets/delete.svg';
 
 const SelectedProductsItem = ({ product, onSelect, onUnselect, isSelected }) => {
