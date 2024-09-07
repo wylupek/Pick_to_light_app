@@ -79,7 +79,7 @@ const DisplayPage = () => {
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </header>
             {filteredProducts.length === 0 ? (
-                <p>No products selected</p>
+                <p className="p">No products selected</p>
             ) : (
                 <>
                     <div className="listContainer">

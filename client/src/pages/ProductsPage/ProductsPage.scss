@@ -11,11 +11,7 @@
     z-index: 1000;
   }
 
-  .listContainer {
-    margin-top: $suppliers-table-margin-top;
-  }
-
-  .p {
+  .listContainer, .p {
     margin-top: $suppliers-table-margin-top;
   }
 }
