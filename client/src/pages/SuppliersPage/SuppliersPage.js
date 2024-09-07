@@ -54,7 +54,6 @@ const SuppliersPage = () => {
         navigate('/selected-products');
     };
 
-    console.log(filteredSuppliers)
 
     return (
         <div className="SuppliersPage">

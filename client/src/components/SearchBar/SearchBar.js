@@ -19,9 +19,6 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
 
     const handleDelete = () => {
         setSearchQuery('');
-        if (inputRef.current) {
-            inputRef.current.focus();
-        }
     };
 
     return (

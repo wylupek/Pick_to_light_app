@@ -1,26 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './DeliverButton.scss';
 
-const DeliverButton = ({ onClick, children }) => {
-    const [isClicked, setIsClicked] = useState(false);
-
-    const handleClick = () => {
-        setIsClicked(true);
-
-        if (onClick) {
-            onClick();
-        }
-
-        setTimeout(() => {
-            setIsClicked(false);
-        }, 1500);
-    };
-
+const DeliverButton = ({ onClick, children, isClicked }) => {
     return (
         <div className="deliver-div">
             <button
                 className={`deliver-button ${isClicked ? 'clicked' : ''}`}
-                onClick={handleClick}
+                onClick={onClick}
             >
                 {children}
             </button>

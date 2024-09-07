@@ -13,6 +13,7 @@ const DisplayPage = () => {
     const [sector, setSector] = useState(1);
     const [productToDisplay, setProductToDisplay] = useState(null);
     const [selectedProducts, setSelectedProducts] = useState([]);
+    const [isClicked, setIsClicked] = useState(false);
 
     // Load selected products from sessionStorage on component mount
     useEffect(() => {
@@ -46,8 +47,15 @@ const DisplayPage = () => {
     const handleDisplayButtonClick = () => {
         if (productToDisplay) {
             displayProduct(productToDisplay);
+
+            // Change button color
+            setIsClicked(true);
+            setTimeout(() => {
+                setIsClicked(false);
+            }, 1500);
         }
     };
+
 
     // Toggle product selection
     const toggleSelectProduct = (product) => {
@@ -87,7 +95,7 @@ const DisplayPage = () => {
                         />
                     </div>
 
-                    <DeliverButton onClick={handleDisplayButtonClick}>
+                    <DeliverButton onClick={handleDisplayButtonClick}  isClicked={isClicked}>
                         Display
                     </DeliverButton>
                 </>
