@@ -1,25 +1,31 @@
 import React from 'react';
 import './ListItem.scss';
 
-const ListItem = ({ product, onSelect, isSelected, showUnselectIcon, UnselectIcon, onUnselect }) => {
+const ListItem = ({ item, idAttribute, textAttribute,
+                      isSelected, onClick, onIconClick, Icon }) => {
     return (
         <div
-            className={`listItem ${isSelected ? 'selected' : ''} ${showUnselectIcon ? 'withIcon' : 'withoutIcon'}`}
-            onClick={() => onSelect(product)}
+            className={`listItem ${isSelected ? 'selected' : ''} ${Icon ? 'withIcon' : 'withoutIcon'}`}
+            onClick={() => onClick(item)}
         >
-            {showUnselectIcon && UnselectIcon && (
-                <UnselectIcon
+            {Icon && (
+                <Icon
                     alt="Unselect"
                     className="unselectIcon"
                     onClick={(e) => {
                         e.stopPropagation();
-                        onUnselect(product.id);
+                        if (onIconClick) {
+                            onIconClick(item.id);
+                        }
+                        else {
+                            onClick(item)
+                        }
                     }}
                 />
             )}
             <div className="productInfo">
-                <div className="productEan">{product.ean}</div>
-                <div className="productName">{product.product_name}</div>
+                <div className="productId">{item[idAttribute]}</div>
+                <div className="productText">{item[textAttribute]}</div>
             </div>
         </div>
     );

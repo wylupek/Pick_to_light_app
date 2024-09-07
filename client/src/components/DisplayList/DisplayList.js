@@ -1,20 +1,21 @@
 import React from 'react';
 import ListItem from '../ListItem/ListItem';
 import './DisplayList.scss';
-import { ReactComponent as UnselectIcon } from '../../assets/delete.svg';
 
-const DisplayList = ({ products, productToDisplay, toggleSelectProduct, unselectProduct }) => {
+const DisplayList = ({ items, keyAttribute, idAttribute, textAttribute,
+                         selectedItems, onClick, onIconClick, Icon }) => {
     return (
         <div className="displayList">
-            {products.map(product => (
+            {items.map(item => (
                 <ListItem
-                    key={product.ean}
-                    product={product}
-                    isSelected={productToDisplay && productToDisplay.id === product.id}
-                    onSelect={toggleSelectProduct}
-                    onUnselect={unselectProduct}
-                    showUnselectIcon={true}
-                    UnselectIcon={UnselectIcon}
+                    key={item[keyAttribute]}
+                    item={item}
+                    idAttribute={idAttribute}
+                    textAttribute={textAttribute}
+                    isSelected={selectedItems.includes(item.id)}
+                    onClick={onClick}
+                    onIconClick={onIconClick}
+                    Icon={Icon}
                 />
             ))}
         </div>

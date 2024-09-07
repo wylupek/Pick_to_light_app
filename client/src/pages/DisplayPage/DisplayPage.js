@@ -6,6 +6,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import DeliverButton from '../../components/DeliverButton/DeliverButton';
 import axios from 'axios';
 import config from '../../config';
+import { ReactComponent as UnselectIcon } from '../../assets/delete.svg';
 
 const DisplayPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -44,16 +45,16 @@ const DisplayPage = () => {
 
     const handleDisplayButtonClick = () => {
         if (productToDisplay) {
-            displayProduct(productToDisplay.id);
+            displayProduct(productToDisplay);
         }
     };
 
     // Toggle product selection
     const toggleSelectProduct = (product) => {
-        if (productToDisplay && productToDisplay.id === product.id) {
+        if (productToDisplay && productToDisplay === product.id) {
             setProductToDisplay(null);
         } else {
-            setProductToDisplay(product);
+            setProductToDisplay(product.id);
         }
     };
 
@@ -74,10 +75,14 @@ const DisplayPage = () => {
             ) : (
                 <>
                     <DisplayList
-                        products={filteredProducts}
-                        productToDisplay={productToDisplay}
-                        toggleSelectProduct={toggleSelectProduct}
-                        unselectProduct={unselectProduct}
+                        items={filteredProducts}
+                        keyAttribute={"id"}
+                        idAttribute={"ean"}
+                        textAttribute={"product_name"}
+                        selectedItems={[productToDisplay]}
+                        onClick={toggleSelectProduct}
+                        onIconClick={unselectProduct}
+                        Icon={UnselectIcon}
                     />
                     <DeliverButton onClick={handleDisplayButtonClick}>
                         Display
