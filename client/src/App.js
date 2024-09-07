@@ -1,8 +1,8 @@
 import './App.scss';
 import React from 'react';
-import SuppliersPage from "./Pages/SuppliersPage/SuppliersPage";
-import ProductsPage from "./Pages/ProductsPage/ProductsPage"
-import DisplayPage from './Pages/DisplayPage/DisplayPage';
+import SuppliersPage from "./pages/SuppliersPage/SuppliersPage";
+import ProductsPage from "./pages/ProductsPage/ProductsPage"
+import DisplayPage from './pages/DisplayPage/DisplayPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
