@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DisplayPage.scss';
-import SelectedProductsTable from '../../components/SelectedProductsTable/SelectedProductsTable';
+import DisplayTable from '../../components/DisplayTable/DisplayTable';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import DeliverButton from '../../components/DeliverButton/DeliverButton';
@@ -73,7 +73,7 @@ const DisplayPage = () => {
                 <p>No products selected</p>
             ) : (
                 <>
-                    <SelectedProductsTable
+                    <DisplayTable
                         products={filteredProducts}
                         productToDisplay={productToDisplay}
                         toggleSelectProduct={toggleSelectProduct}
