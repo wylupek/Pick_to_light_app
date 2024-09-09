@@ -11,7 +11,11 @@
     z-index: 1000;
   }
 
-  .listContainer, .p {
+  .listContainer {
     margin-top: $suppliers-table-margin-top;
+  }
+
+  .p {
+    margin-top: calc($suppliers-table-margin-top + 25px);
   }
 }

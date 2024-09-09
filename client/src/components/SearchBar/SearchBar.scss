@@ -3,6 +3,7 @@
 .searchBar {
   position: relative;
   width: 100%;
+  margin-right: 100px;
 
   .searchIcon {
     position: absolute;
@@ -40,9 +41,11 @@
     width: 100%;
     padding: 10px 36px 10px 36px;
     font-size: 16px;
-    border: 1px solid $main-border-color;
-    border-radius: $control-panel-border-radius;
-    background-color: $main-background-color;
+    border: 0;
+    caret-color: $caret-color;
+    //border-radius: 0px;
+    //border-bottom: $positive-color solid px;
+    background-color: $bright-background-color;
     color: $main-text-color;
 
     box-sizing: border-box;
@@ -55,7 +58,6 @@
 
     &:focus {
       outline: none;
-      border-color: $main-border-color;
       box-shadow: none;
     }
   }

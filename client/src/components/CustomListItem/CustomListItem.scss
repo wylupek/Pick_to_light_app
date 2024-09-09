@@ -2,12 +2,13 @@
 
 .customListItem {
   display: flex;
+  min-height: $list-item-min-height;
   align-items: center;
   border-radius: $control-panel-border-radius;
   background-color: $bright-background-color;
   cursor: pointer;
   transition: background-color 0.7s ease;
-  margin: 5px 2px 0 2px;
+  margin-top: 5px;
   padding: 7px 10px 7px 2px;
 
   &.withoutIcon {
@@ -15,7 +16,7 @@
   }
 
   &.selected {
-    background-color: $selected-item-color;
+    background-color: $list-item-color;
   }
 
   .unselectIcon {
@@ -37,11 +38,11 @@
 
   .productId {
     font-weight: bold;
-    font-size: $selected-item-ean-font-size;
-    color: $selected-item-ean-color;
+    font-size: $list-item-ean-font-size;
+    color: $list-item-ean-color;
   }
 
   .productText {
-    font-size: $selected-item-name-font-size;
+    font-size: $list-item-name-font-size;
   }
 }

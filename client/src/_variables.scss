@@ -18,16 +18,20 @@ $placeholder-text-color: #FFFFFFA3;
 $button-text-color: #ffffff;
 $link-color: #61dafb;
 
-// Display screen styles
-$selected-item-color: #268600;
-$selected-item-ean-color: #a6a6a6;
-$selected-item-ean-font-size: 10px;
-$selected-item-name-font-size:16px;
+// List item styles
+$list-item-min-height: 29px;
+$list-item-color: #268600;
+$list-item-ean-color: #a6a6a6;
+$list-item-ean-font-size: 10px;
+$list-item-name-font-size:16px;
 
 // Placement margins
 $product-table-margin-top: 89px;
 $product-table-margin-top-media-500: 131px;
 $suppliers-table-margin-top: 45px;
+
+// Placement paddings
+$main-side-padding: 2px;
 
 // Elements sizes
 $control-panel-element-height: 40px;
@@ -38,3 +42,6 @@ $deliver-button-font-size: 25px;
 $Deliver-button-padding-bottom: 10px;
 
 $margin-bottom: 75px;
+
+// Other
+$caret-color: #36ce04;

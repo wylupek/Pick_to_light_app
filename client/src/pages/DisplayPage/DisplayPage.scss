@@ -12,10 +12,17 @@
     z-index: 1000;
   }
 
-  .listContainer, .p {
+  .listContainer {
     margin-top: $product-table-margin-top;
     @media (max-width: 500px) {
       margin-top: $product-table-margin-top-media-500;
+    }
+  }
+
+  .p {
+    margin-top: calc($product-table-margin-top + 25px);
+    @media (max-width: 500px) {
+      margin-top: calc($product-table-margin-top-media-500 + 25px);
     }
   }
 }
