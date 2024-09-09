@@ -11,6 +11,7 @@ const SuppliersPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [suppliers, setSuppliers] = useState([]);
     const navigate = useNavigate();
+    const [showNoProductsMessage, setShowNoProductsMessage] = useState(false);
 
     useEffect(() => {
         axios.post(`${config.server.url}/api/suppliers`)
@@ -19,6 +20,9 @@ const SuppliersPage = () => {
             })
             .catch(err => {
                 console.error(err);
+            })
+            .finally(() => {
+                setShowNoProductsMessage(true);
             });
     }, []);
 
@@ -60,7 +64,7 @@ const SuppliersPage = () => {
             <header className="header">
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </header>
-            {filteredSuppliers.length === 0 ? (
+            {showNoProductsMessage && filteredSuppliers.length === 0 ? (
                 <>
                     <p className="p">No suppliers available</p>
                 </>

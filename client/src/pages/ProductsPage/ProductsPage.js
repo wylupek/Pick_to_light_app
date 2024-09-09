@@ -15,6 +15,7 @@ const ProductsPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [lastClickTimes, setLastClickTimes] = useState({});
+    const [showNoProductsMessage, setShowNoProductsMessage] = useState(false);
 
     useEffect(() => {
         axios.post(`${config.server.url}/api/productsBySupplierId`, { id })
@@ -31,7 +32,10 @@ const ProductsPage = () => {
                 );
                 setSelectedProducts([...matchedProducts, ...newProducts]);
             })
-            .catch(err => console.error(err));
+            .catch(err => console.error(err))
+            .finally(() => {
+                setShowNoProductsMessage(true);
+            });
     }, [id]);
 
     useEffect(() => {
@@ -77,7 +81,7 @@ const ProductsPage = () => {
             <header className="header">
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </header>
-            {filteredProducts.length === 0 ? (
+            {showNoProductsMessage && filteredProducts.length === 0 ? (
                 <>
                     <p className="p">No products available for this supplier</p>
                 </>

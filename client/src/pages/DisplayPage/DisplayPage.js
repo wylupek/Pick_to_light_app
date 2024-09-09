@@ -14,11 +14,13 @@ const DisplayPage = () => {
     const [productToDisplay, setProductToDisplay] = useState(null);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [isClicked, setIsClicked] = useState(false);
+    const [showNoProductsMessage, setShowNoProductsMessage] = useState(false);
 
     // Load selected products from sessionStorage on component mount
     useEffect(() => {
         const storedSelectedProducts = JSON.parse(sessionStorage.getItem('selectedProducts')) || [];
         setSelectedProducts(storedSelectedProducts);
+        setShowNoProductsMessage(true);
     }, []);
 
     // Unselect a product
@@ -78,7 +80,7 @@ const DisplayPage = () => {
                 <ControlPanel sector={sector} setSector={setSector} />
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </header>
-            {filteredProducts.length === 0 ? (
+            {showNoProductsMessage && filteredProducts.length === 0 ? (
                 <p className="p">No products selected</p>
             ) : (
                 <>
