@@ -1,9 +1,9 @@
 const config = {
     server: {
         ip: '192.168.1.100',
-        port: 80
+        port: 443
     }
 };
-config.server.url = `http://${config.server.ip}:${config.server.port}`;
+config.server.url = `https://${config.server.ip}:${config.server.port}`;
 
 module.exports = config;
