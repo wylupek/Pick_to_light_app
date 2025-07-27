@@ -13,16 +13,16 @@
   }
 
   .listContainer {
-    margin-top: $product-table-margin-top;
+    margin-top: $display-page-table-margin-top;
     @media (max-width: 500px) {
-      margin-top: $product-table-margin-top-media-500;
+      margin-top: $display-page-table-margin-top-media-500;
     }
   }
 
   .p {
-    margin-top: calc($product-table-margin-top + 25px);
+    margin-top: calc($display-page-table-margin-top + 25px);
     @media (max-width: 500px) {
-      margin-top: calc($product-table-margin-top-media-500 + 25px);
+      margin-top: calc($display-page-table-margin-top-media-500 + 25px);
     }
   }
 }

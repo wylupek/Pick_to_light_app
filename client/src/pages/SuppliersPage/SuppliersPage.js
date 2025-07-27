@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './SuppliersPage.scss';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import TestPanel from '../../components/TestPanel/TestPanel';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DeliverButton from '../../components/DeliverButton/DeliverButton';
@@ -12,6 +13,15 @@ const SuppliersPage = () => {
     const [suppliers, setSuppliers] = useState([]);
     const navigate = useNavigate();
     const [showNoProductsMessage, setShowNoProductsMessage] = useState(false);
+    const [currentPattern, setCurrentPattern] = useState(0);
+    
+    const SECTOR_LENGTH = config.constants.SECTOR_LENGTH;
+    
+    // Define test patterns - easy to extend
+    const testPatterns = [
+        { name: 'Pattern 1', generator: () => Array(SECTOR_LENGTH).fill(88) },
+        { name: 'Pattern 2', generator: () => Array.from({ length: SECTOR_LENGTH }, (_, i) => i + 1) }
+    ];
 
     useEffect(() => {
         axios.post(`${config.server.url}/api/suppliers`)
@@ -58,10 +68,43 @@ const SuppliersPage = () => {
         navigate('/selected-products');
     };
 
+    const handleTestClick = () => {
+        const pattern = testPatterns[currentPattern];
+        const testPattern = pattern.generator();
+        console.log(`Executing ${pattern.name}:`, testPattern);
+        
+        // Call API to create test files
+        axios.post(`${config.server.url}/api/testDisplay`, { testPattern })
+            .then(response => {
+                console.log(response.data.message);
+            })
+            .catch(error => {
+                console.error('Error calling test API:', error.response ? error.response.data : error.message);
+            });
+        
+        // Cycle to next pattern
+        setCurrentPattern((prev) => (prev + 1) % testPatterns.length);
+    };
+
+    const handleOffClick = () => {
+        const zerosArray = Array(SECTOR_LENGTH).fill(0);
+        console.log('Turning off displays:', zerosArray);
+        
+        // Call API to create files with zeros
+        axios.post(`${config.server.url}/api/testDisplay`, { testPattern: zerosArray })
+            .then(response => {
+                console.log(response.data.message);
+            })
+            .catch(error => {
+                console.error('Error calling off API:', error.response ? error.response.data : error.message);
+            });
+    };
+
 
     return (
         <div className="SuppliersPage">
             <header className="header">
+                <TestPanel onTestClick={handleTestClick} onOffClick={handleOffClick} />
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </header>
             {showNoProductsMessage && filteredSuppliers.length === 0 ? (

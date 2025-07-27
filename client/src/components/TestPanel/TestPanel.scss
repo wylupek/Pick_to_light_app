@@ -1,0 +1,23 @@
+@import '../../variables';
+
+.test-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 2px 2px 3px 2px; // Increased bottom margin from 2px to 8px
+  align-items: center;
+  justify-items: center;
+
+  .test-button {
+    grid-column: 1 / 2;
+  }
+
+  .off-button {
+    grid-column: 2 / 3;
+  }
+
+  @media (max-width: 500px) {
+    gap: 2px;
+    margin: 2px 2px 3px 2px;
+  }
+} 

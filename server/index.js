@@ -12,6 +12,7 @@ app.use(express.json());
 // Config
 const config = require('./config');
 const SECTOR_LENGTH = config.constants.SECTOR_LENGTH;
+const SECTORS_NUMBER = config.constants.SECTORS_NUMBER;
 const SERVER_IP = config.server.ip;
 const SERVER_PORT = config.server.port;
 const SERVER_URL = config.server.url;
@@ -22,6 +23,12 @@ app.listen(SERVER_PORT, SERVER_IP, () => {
 });
 
 app.use('/data', express.static(path.join(__dirname, 'data/sectors')));
+
+// Helper function for writing sector files
+const writeSectorFile = (sector, values, callback) => {
+    const filePath = path.join(__dirname, '/data/sectors/sector' + sector.toString() + '.txt');
+    fs.writeFile(filePath, values.join(' '), callback);
+};
 
 app.get('/', (req, res) => {
     res.send('Hello from server!');
@@ -115,8 +122,7 @@ app.post('/api/displaySector', (req, res) => {
             }
         });
 
-        const filePath = path.join(__dirname, '/data/sectors/sector' + sector.toString() + '.txt');
-        fs.writeFile(filePath, valuesToOutput.join(' '), (err) => {
+        writeSectorFile(sector, valuesToOutput, (err) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Failed to write file' });
@@ -124,6 +130,26 @@ app.post('/api/displaySector', (req, res) => {
             res.status(200).json({ message: 'File created successfully' });
         });
     });
+});
+
+app.post('/api/testDisplay', (req, res) => {
+    const { testPattern } = req.body;
+    
+    if (!testPattern || !Array.isArray(testPattern) || testPattern.length !== SECTOR_LENGTH) {
+        return res.status(400).json({ error: `Test pattern must be an array of ${SECTOR_LENGTH} values` });
+    }
+
+    // Write to all sectors synchronously for simplicity
+    try {
+        for (let sector = 1; sector <= SECTORS_NUMBER; sector++) {
+            const filePath = path.join(__dirname, '/data/sectors/sector' + sector.toString() + '.txt');
+            fs.writeFileSync(filePath, testPattern.join(' '));
+        }
+        res.status(200).json({ message: `Test pattern applied to ${SECTORS_NUMBER} sectors successfully` });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to write test files' });
+    }
 });
 
 app.post('/api/deleteById', (req, res) => {
