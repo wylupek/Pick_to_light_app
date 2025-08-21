@@ -26,6 +26,7 @@ done
 
 echo "$(date): Pulling repository updates..." >> "$APP_PATH/logs/startup.log"
 cd "$APP_PATH"
+git config --global --add safe.directory "$APP_PATH" >> "$APP_PATH/logs/startup.log" 2>&1
 git pull >> "$APP_PATH/logs/startup.log" 2>&1
 
 echo "$(date): Starting the client..." >> "$APP_PATH/logs/startup.log"
