@@ -24,6 +24,10 @@ while ! is_wifi_connected; do
     sleep 5
 done
 
+echo "$(date): Pulling repository updates..." >> "$APP_PATH/logs/startup.log"
+cd "$APP_PATH"
+git pull >> "$APP_PATH/logs/startup.log" 2>&1
+
 echo "$(date): Starting the client..." >> "$APP_PATH/logs/startup.log"
 cd "$APP_PATH/client/"
 npm run start > "$APP_PATH/logs/client.log" 2>&1 &
